@@ -1,32 +1,45 @@
-class MovableObject {
-  x;
-  y;
-  img;
-  height;
-  width;
+class MovableObject extends DrawableObject {
   speed;
-  imageCache = [];
-  currentImage = 0;
   otherDirection = false;
   speedY = 0;
   acceleration = 0.0005;
+  energy = 100;
+  lastHit = 0;
 
-  draw(ctx) {
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-  }
-  drawFrame(ctx) {
-    if (
-      this instanceof Character ||
-      this instanceof PufferFish ||
-      this instanceof JellyFish ||
-      this instanceof Endboss
-    ) {
-      ctx.beginPath();
-      ctx.lineWidth = "4";
-      ctx.strokeStyle = "transparent";
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.stroke();
+  isColliding(mo) {
+    if (this instanceof Character) {
+      return (
+        this.x + 50 + this.width - 80 > mo.x &&
+        this.y + 120 + this.height - 170 > mo.y &&
+        this.x + 50 < mo.x &&
+        this.y + 120 < mo.y + mo.height
+      );
+    } else {
+      return (
+        this.x + this.width > mo.x &&
+        this.y + this.height > mo.y &&
+        this.x < mo.x &&
+        this.y < mo.y + mo.height
+      );
     }
+  }
+
+  hit() {
+    this.energy -= 2;
+    if (this.energy < 0) {
+      this.energy = 0;
+    } else {
+      this.lastHit = new Date().getTime();
+    }
+  }
+  isHurt() {
+    let timepassed = new Date().getTime() - this.lastHit;
+    timepassed = timepassed / 1000;
+    return timepassed < 1;
+  }
+
+  isDead() {
+    return this.energy == 0;
   }
 
   applyGravity() {
@@ -41,23 +54,17 @@ class MovableObject {
     return this.y < 275;
   }
 
-  loadImage(path) {
-    this.img = new Image();
-    this.img.src = path;
-  }
-  loadImages(arr) {
-    arr.forEach((path) => {
-      let img = new Image();
-      img.src = path;
-      this.imageCache[path] = img;
-    });
-  }
-
   moveRight() {
     this.x += this.speed;
   }
   moveLeft() {
     this.x -= this.speed;
+  }
+  moveDown() {
+    this.y += this.speed;
+  }
+  moveUp() {
+    this.y -= this.speed;
   }
 
   playAnimation(images) {

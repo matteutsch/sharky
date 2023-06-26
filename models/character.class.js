@@ -1,8 +1,8 @@
 class Character extends MovableObject {
-  height = 250;
-  width = 220;
   x = 10;
   y = 150;
+  height = 250;
+  width = 220;
   speed = 5;
 
   IMAGES_IDLE = [
@@ -39,6 +39,37 @@ class Character extends MovableObject {
     "../img/1.Sharkie/3.Swim/5.png",
     "../img/1.Sharkie/3.Swim/6.png",
   ];
+  IMAGES_DEAD = [
+    "../img/1.Sharkie/6.dead/1.Poisoned/1.png",
+    "../img/1.Sharkie/6.dead/1.Poisoned/2.png",
+    "../img/1.Sharkie/6.dead/1.Poisoned/3.png",
+    "../img/1.Sharkie/6.dead/1.Poisoned/4.png",
+    "../img/1.Sharkie/6.dead/1.Poisoned/5.png",
+    "../img/1.Sharkie/6.dead/1.Poisoned/6.png",
+    "../img/1.Sharkie/6.dead/1.Poisoned/7.png",
+    "../img/1.Sharkie/6.dead/1.Poisoned/8.png",
+    "../img/1.Sharkie/6.dead/1.Poisoned/9.png",
+    "../img/1.Sharkie/6.dead/1.Poisoned/10.png",
+    "../img/1.Sharkie/6.dead/1.Poisoned/11.png",
+    "../img/1.Sharkie/6.dead/1.Poisoned/12.png",
+  ];
+
+  IMAGES_HURT_SHOCK = [
+    "../img/1.Sharkie/5.Hurt/2.Electric shock/o1.png",
+    "../img/1.Sharkie/5.Hurt/2.Electric shock/o2.png",
+    "../img/1.Sharkie/5.Hurt/2.Electric shock/1.png",
+    "../img/1.Sharkie/5.Hurt/2.Electric shock/2.png",
+    "../img/1.Sharkie/5.Hurt/2.Electric shock/3.png",
+  ];
+
+  IMAGES_HURT_POISON = [
+    "../img/1.Sharkie/5.Hurt/1.Poisoned/1.png",
+    "../img/1.Sharkie/5.Hurt/1.Poisoned/2.png",
+    "../img/1.Sharkie/5.Hurt/1.Poisoned/3.png",
+    "../img/1.Sharkie/5.Hurt/1.Poisoned/4.png",
+    "../img/1.Sharkie/5.Hurt/1.Poisoned/5.png",
+  ];
+
   world;
 
   constructor() {
@@ -46,14 +77,17 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_SWIM);
     this.loadImages(this.IMAGES_IDLE);
     this.loadImages(this.IMAGES_LONG_IDLE);
+    this.loadImages(this.IMAGES_DEAD);
+    this.loadImages(this.IMAGES_HURT_SHOCK);
+    this.loadImages(this.IMAGES_HURT_POISON);
     this.animate();
     this.applyGravity();
   }
 
   animate() {
     this.animateIdle();
-    //moving right / left
 
+    //moving right / left
     setInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
@@ -69,10 +103,10 @@ class Character extends MovableObject {
     //moving up / down
     setInterval(() => {
       if (this.world.keyboard.UP && this.y > -100) {
-        this.y -= this.speed;
+        this.moveUp();
       }
       if (this.world.keyboard.DOWN && this.y < 275) {
-        this.y += this.speed;
+        this.moveDown();
       }
     }, 1000 / 60);
 
@@ -87,6 +121,20 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_SWIM);
       }
     }, 1000 / 11);
+
+    //animate Death
+    setInterval(() => {
+      if (this.isDead()) {
+        this.playAnimation(this.IMAGES_DEAD);
+      }
+    }, 29);
+
+    //animate Hurt
+    setInterval(() => {
+      if (this.isHurt()) {
+        this.playAnimation(this.IMAGES_HURT_SHOCK);
+      }
+    }, 1000 / 60);
   }
 
   animateIdle() {
