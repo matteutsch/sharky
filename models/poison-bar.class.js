@@ -14,6 +14,6 @@ class PoisonBar extends DrawableObject {
 
   constructor() {
     super();
-    this.loadImage(this.IMAGES_POISON[4]);
+    this.loadImage(this.IMAGES_POISON[1]);
   }
 }

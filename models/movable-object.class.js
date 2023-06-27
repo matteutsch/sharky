@@ -5,6 +5,7 @@ class MovableObject extends DrawableObject {
   acceleration = 0.0005;
   energy = 100;
   lastHit = 0;
+  isRising = false;
 
   isColliding(mo) {
     if (this instanceof Character) {
@@ -25,7 +26,7 @@ class MovableObject extends DrawableObject {
   }
 
   hit() {
-    this.energy -= 2;
+    this.energy -= 5;
     if (this.energy < 0) {
       this.energy = 0;
     } else {
@@ -45,13 +46,50 @@ class MovableObject extends DrawableObject {
   applyGravity() {
     setInterval(() => {
       if (this.isAboveGround()) {
-        this.y -= this.speedY;
-        this.speedY -= this.acceleration;
+        this.y += this.speedY;
+        this.speedY += this.acceleration;
       }
     }, 1000 / 25);
   }
+
+  riseAndSink() {
+    setInterval(() => {
+      if (this.isBelowSurface() && this.isAboveGround()) {
+        if (this.isRising) {
+          this.y -= this.speedY;
+        } else {
+          this.y += this.speedY;
+        }
+      } else if (this.reachedBottom()) {
+        this.isRising = true;
+        this.y -= this.speedY;
+      } else if (this.reachedTop()) {
+        this.isRising = false;
+        this.y += this.speedY;
+      }
+    }, 1000 / 60);
+  }
+
   isAboveGround() {
-    return this.y < 275;
+    if (this instanceof Character) {
+      return this.y < 275;
+    } else {
+      return this.y <= 400;
+    }
+  }
+  reachedTop() {
+    return this.y <= 50;
+  }
+  reachedBottom() {
+    return this.y >= 400;
+  }
+  isBelowSurface() {
+    return this.y > 0;
+  }
+
+  rise() {
+    this.y -= this.speedY;
+    this.speedY += this.acceleration;
   }
 
   moveRight() {

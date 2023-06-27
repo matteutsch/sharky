@@ -26,12 +26,13 @@ class DrawableObject {
       this instanceof Character ||
       this instanceof PufferFish ||
       this instanceof JellyFish ||
+      this instanceof JellyPurple ||
       this instanceof Endboss ||
       this instanceof ShootableObject
     ) {
       ctx.beginPath();
       ctx.lineWidth = "4";
-      ctx.strokeStyle = "blue";
+      ctx.strokeStyle = "transparent";
       if (this instanceof Character) {
         ctx.rect(this.x + 50, this.y + 120, this.width - 80, this.height - 170);
       } else {

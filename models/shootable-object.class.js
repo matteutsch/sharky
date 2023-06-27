@@ -5,20 +5,14 @@ class ShootableObject extends MovableObject {
     this.y = y;
     this.width = 30;
     this.height = 30;
+    this.acceleration = 0.01;
     this.shoot();
   }
 
   shoot() {
-    this.rise();
     setInterval(() => {
+      this.rise();
       this.x += 3;
-    }, 1000 / 60);
-  }
-
-  rise() {
-    setInterval(() => {
-      this.y -= this.speedY;
-      this.speedY += 0.01;
     }, 1000 / 60);
   }
 }
