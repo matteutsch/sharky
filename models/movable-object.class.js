@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
   energy = 100;
   lastHit = 0;
   isRising = false;
+  movingRight = false;
 
   isColliding(mo) {
     if (this instanceof Character) {
@@ -70,6 +71,22 @@ class MovableObject extends DrawableObject {
     }, 1000 / 60);
   }
 
+  backAndForth() {
+    if (this.isWithinLevel()) {
+      if (!this.movingRight) {
+        this.moveLeft();
+      } else {
+        this.moveRight();
+      }
+    } else if (this.reachedLeftLevelEnd()) {
+      this.movingRight = true;
+      this.moveRight();
+    } else if (this.reachedRightLevelEnd()) {
+      this.movingRight = false;
+      this.moveLeft();
+    }
+  }
+
   isAboveGround() {
     if (this instanceof Character) {
       return this.y < 275;
@@ -92,6 +109,17 @@ class MovableObject extends DrawableObject {
     this.speedY += this.acceleration;
   }
 
+  isWithinLevel() {
+    return this.x >= -400 && this.x <= 1700;
+  }
+  reachedLeftLevelEnd() {
+    this.otherDirection = true;
+    return this.x <= -400;
+  }
+  reachedRightLevelEnd() {
+    this.otherDirection = false;
+    return this.x >= 1700;
+  }
   moveRight() {
     this.x += this.speed;
   }

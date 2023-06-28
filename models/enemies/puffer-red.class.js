@@ -2,7 +2,7 @@ class PufferRed extends MovableObject {
   height = 80;
   width = 80;
   x = 900 + Math.random() * 800;
-  y = 50 + Math.random() * 200;
+  y = 150 + Math.random() * 200;
   speed = 0.8 + Math.random() * 0.5;
 
   IMAGES_RED = [
@@ -21,7 +21,7 @@ class PufferRed extends MovableObject {
 
   animate() {
     setInterval(() => {
-      this.moveLeft();
+      this.backAndForth();
     }, 1000 / 60);
 
     setInterval(() => {

@@ -1,9 +1,9 @@
 class JellyPink extends MovableObject {
   height = 100;
   width = 100;
-  x = 950 + Math.random() * 900;
+  x = 500 + Math.random() * 1000;
   y = 100 + Math.random() * 100;
-  speedY = 2 + Math.random();
+  speedY = 1 + Math.random();
   acceleration = 0.001 + Math.random();
 
   IMAGES_PINK = [
