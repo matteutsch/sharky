@@ -33,7 +33,7 @@ class World {
   }
 
   checkShotObjects() {
-    if (this.keyboard.X) {
+    if (this.keyboard.SPACE) {
       let bubble = new ShootableObject(
         this.character.x + this.character.width,
         this.character.y + this.character.height - 110

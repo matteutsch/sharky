@@ -70,6 +70,27 @@ class Character extends MovableObject {
     "../img/1.Sharkie/5.Hurt/1.Poisoned/5.png",
   ];
 
+  IMAGES_SHOOT = [
+    "../img/1.Sharkie/4.Attack/Bubble trap/For Whale/Whitout bubbles/1.png",
+    "../img/1.Sharkie/4.Attack/Bubble trap/For Whale/Whitout bubbles/2.png",
+    "../img/1.Sharkie/4.Attack/Bubble trap/For Whale/Whitout bubbles/3.png",
+    "../img/1.Sharkie/4.Attack/Bubble trap/For Whale/Whitout bubbles/4.png",
+    "../img/1.Sharkie/4.Attack/Bubble trap/For Whale/Whitout bubbles/5.png",
+    "../img/1.Sharkie/4.Attack/Bubble trap/For Whale/Whitout bubbles/6.png",
+    "../img/1.Sharkie/4.Attack/Bubble trap/For Whale/Whitout bubbles/7.png",
+    "../img/1.Sharkie/4.Attack/Bubble trap/For Whale/Whitout bubbles/8.png",
+  ];
+  IMAGES_SLAP = [
+    "../img/1.Sharkie/4.Attack/Fin slap/1.png",
+    "../img/1.Sharkie/4.Attack/Fin slap/2.png",
+    "../img/1.Sharkie/4.Attack/Fin slap/3.png",
+    "../img/1.Sharkie/4.Attack/Fin slap/4.png",
+    "../img/1.Sharkie/4.Attack/Fin slap/5.png",
+    "../img/1.Sharkie/4.Attack/Fin slap/6.png",
+    "../img/1.Sharkie/4.Attack/Fin slap/7.png",
+    "../img/1.Sharkie/4.Attack/Fin slap/8.png",
+  ];
+
   world;
 
   constructor() {
@@ -80,14 +101,51 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_DEAD);
     this.loadImages(this.IMAGES_HURT_SHOCK);
     this.loadImages(this.IMAGES_HURT_POISON);
+    this.loadImages(this.IMAGES_SHOOT);
+    this.loadImages(this.IMAGES_SLAP);
     this.animate();
     this.applyGravity();
   }
 
   animate() {
     this.animateIdle();
+    this.animateMovementX();
+    this.animateMovementY();
+    this.animateSwim();
+    this.animateAttack();
+    this.animateHurt();
+    this.animateDeath();
+  }
 
-    //moving right / left
+  animateHurt() {
+    setInterval(() => {
+      if (this.isHurt() && !this.isDead()) {
+        this.playAnimation(this.IMAGES_HURT_SHOCK);
+      }
+    }, 1000 / 60);
+  }
+
+  animateDeath() {
+    setInterval(() => {
+      if (this.isDead()) {
+        this.playAnimation(this.IMAGES_DEAD);
+      }
+    }, 1000 / 25);
+  }
+
+  animateSwim() {
+    setInterval(() => {
+      if (
+        this.world.keyboard.RIGHT ||
+        this.world.keyboard.LEFT ||
+        this.world.keyboard.UP ||
+        this.world.keyboard.DOWN
+      ) {
+        this.playAnimation(this.IMAGES_SWIM);
+      }
+    }, 1000 / 11);
+  }
+  animateMovementX() {
     setInterval(() => {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
@@ -99,8 +157,9 @@ class Character extends MovableObject {
       }
       this.world.camera_x = -this.x + 50;
     }, 1000 / 60);
+  }
 
-    //moving up / down
+  animateMovementY() {
     setInterval(() => {
       if (this.world.keyboard.UP && this.y > -100) {
         this.moveUp();
@@ -109,32 +168,16 @@ class Character extends MovableObject {
         this.moveDown();
       }
     }, 1000 / 60);
+  }
 
-    //animate moving
+  animateAttack() {
     setInterval(() => {
-      if (
-        this.world.keyboard.RIGHT ||
-        this.world.keyboard.LEFT ||
-        this.world.keyboard.UP ||
-        this.world.keyboard.DOWN
-      ) {
-        this.playAnimation(this.IMAGES_SWIM);
+      if (this.world.keyboard.SPACE) {
+        this.playAnimation(this.IMAGES_SHOOT);
+      } else if (this.world.keyboard.D) {
+        this.playAnimation(this.IMAGES_SLAP);
       }
-    }, 1000 / 11);
-
-    //animate Death
-    setInterval(() => {
-      if (this.isDead()) {
-        this.playAnimation(this.IMAGES_DEAD);
-      }
-    }, 29);
-
-    //animate Hurt
-    setInterval(() => {
-      if (this.isHurt()) {
-        this.playAnimation(this.IMAGES_HURT_SHOCK);
-      }
-    }, 1000 / 60);
+    }, 1000 / 25);
   }
 
   animateIdle() {
@@ -153,8 +196,8 @@ class Character extends MovableObject {
       this.world.keyboard.LEFT == false &&
       this.world.keyboard.UP == false &&
       this.world.keyboard.DOWN == false &&
-      this.world.keyboard.X == false &&
-      this.world.keyboard.Y == false
+      this.world.keyboard.D == false &&
+      this.world.keyboard.SPACE == false
     );
   }
 }

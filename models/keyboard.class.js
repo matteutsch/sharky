@@ -3,6 +3,6 @@ class Keyboard extends MovableObject {
   LEFT = false;
   UP = false;
   DOWN = false;
-  X = false;
-  Y = false;
+  SPACE = false;
+  D = false;
 }
