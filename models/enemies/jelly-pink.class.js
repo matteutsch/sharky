@@ -1,8 +1,6 @@
 class JellyPink extends MovableObject {
   height = 100;
   width = 100;
-  x = 500 + Math.random() * 1000;
-  y = 100 + Math.random() * 100;
   speedY = 1 + Math.random();
   acceleration = 0.001 + Math.random();
 
@@ -13,8 +11,10 @@ class JellyPink extends MovableObject {
     "../img/2.Enemy/2 Jelly fish/Súper dangerous/Pink 4.png",
   ];
 
-  constructor() {
+  constructor(x, y) {
     super();
+    this.x = x;
+    this.y = y;
     this.loadImages(this.IMAGES_PINK);
     this.animate();
     this.riseAndSink();

@@ -1,8 +1,8 @@
 class PufferGreen extends MovableObject {
   height = 64;
   width = 64;
-  x = Math.random() * 230 + Math.random() * 900;
-  y = Math.random() * 50 + Math.random() * 200;
+  x = 1200 + Math.random() * 900;
+  y = Math.random() * 75 + Math.random() * 200;
   speed = 0.5 + Math.random() * 0.5;
 
   IMAGES_GREEN = [

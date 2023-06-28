@@ -24,9 +24,12 @@ class DrawableObject {
   drawFrame(ctx) {
     if (
       this instanceof Character ||
-      this instanceof PufferFish ||
-      this instanceof JellyFish ||
+      this instanceof PufferBubble ||
+      this instanceof PufferGreen ||
+      this instanceof PufferRed ||
+      this instanceof JellyGreen ||
       this instanceof JellyPurple ||
+      this instanceof JellyPink ||
       this instanceof Endboss ||
       this instanceof ShootableObject
     ) {

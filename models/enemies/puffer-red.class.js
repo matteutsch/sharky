@@ -1,7 +1,7 @@
 class PufferRed extends MovableObject {
   height = 80;
   width = 80;
-  x = 900 + Math.random() * 800;
+  x = 800 + Math.random() * 800;
   y = 150 + Math.random() * 200;
   speed = 0.8 + Math.random() * 0.5;
 

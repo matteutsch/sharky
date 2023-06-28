@@ -1,8 +1,6 @@
 class JellyPurple extends MovableObject {
   height = 80;
   width = 72;
-  x = 250 + Math.random() * 900;
-  y = 100 + Math.random() * 100;
   speedY = 2 + Math.random();
   acceleration = 0.001 + Math.random();
   IMAGES_PURPLE = [
@@ -12,8 +10,10 @@ class JellyPurple extends MovableObject {
     "../img/2.Enemy/2 Jelly fish/Regular damage/Lila 4.png",
   ];
 
-  constructor() {
+  constructor(x, y) {
     super();
+    this.x = x;
+    this.y = y;
     this.loadImages(this.IMAGES_PURPLE);
     this.animate();
     this.riseAndSink();

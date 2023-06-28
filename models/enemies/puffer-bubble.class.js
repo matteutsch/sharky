@@ -1,7 +1,7 @@
 class PufferBubble extends MovableObject {
   height = 60;
   width = 80;
-  x = Math.random() * 230 + Math.random() * 900;
+  x = 1800 + Math.random() * 900;
   y = Math.random() * 50 + Math.random() * 200;
   speed = Math.random() * 0.5 + Math.random() * 0.5;
   IMAGES_BUBBLE = [
