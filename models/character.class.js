@@ -4,6 +4,7 @@ class Character extends MovableObject {
   height = 250;
   width = 220;
   speed = 5;
+  isAnimated = true;
 
   IMAGES_IDLE = [
     "img/1.Sharkie/1.IDLE/1.png",
@@ -117,78 +118,121 @@ class Character extends MovableObject {
     this.animateDeath();
   }
 
+  animateIdle() {
+    let idle = setInterval(() => {
+      if (!this.isDead()) {
+        if (!this.isAboveGround() && this.isAFK()) {
+          this.playAnimation(this.IMAGES_LONG_IDLE);
+        } else if (this.isAFK()) {
+          this.playAnimation(this.IMAGES_IDLE);
+        }
+      } else {
+        clearInterval(idle);
+      }
+    }, 1000 / 8);
+  }
+
   animateHurt() {
-    setInterval(() => {
-      if (this.isHurt() && !this.isDead()) {
-        this.playAnimation(this.IMAGES_HURT_SHOCK);
+    let hurt = setInterval(() => {
+      if (!this.isDead()) {
+        if (this.isHurt() && !this.isDead()) {
+          this.playAnimation(this.IMAGES_HURT_SHOCK);
+        }
+      } else {
+        clearInterval(hurt);
       }
     }, 1000 / 60);
   }
 
   animateDeath() {
-    let death = setInterval(() => {
-      if (this.isDying) {
-        this.playAnimation(this.IMAGES_DEAD);
+    let i = 0;
+    let dead = setInterval(() => {
+      if (this.isDead()) {
+        this.loadImage(this.IMAGES_DEAD[i]);
+        i++;
+        if (i >= 12) {
+          this.moveUpInterval();
+          clearInterval(dead);
+        }
       }
-    }, 100);
-    setTimeout(death, 1200);
+    }, 120);
+  }
+
+  moveUpInterval() {
+    let i = 0;
+    let move = setInterval(() => {
+      this.moveUp();
+      i++;
+      if (i > 100) {
+        clearInterval(move);
+      }
+    }, 1000 / 10);
   }
 
   animateSwim() {
-    setInterval(() => {
-      if (
-        this.world.keyboard.RIGHT ||
-        this.world.keyboard.LEFT ||
-        this.world.keyboard.UP ||
-        this.world.keyboard.DOWN
-      ) {
-        this.playAnimation(this.IMAGES_SWIM);
+    let swim = setInterval(() => {
+      if (!this.isDead()) {
+        if (
+          this.world.keyboard.RIGHT ||
+          this.world.keyboard.LEFT ||
+          this.world.keyboard.UP ||
+          this.world.keyboard.DOWN
+        ) {
+          this.playAnimation(this.IMAGES_SWIM);
+        }
+      } else {
+        clearInterval(swim);
       }
     }, 1000 / 11);
   }
   animateMovementX() {
-    setInterval(() => {
-      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-        this.moveRight();
-        this.otherDirection = false;
+    let move = setInterval(() => {
+      if (!this.isDead()) {
+        if (
+          this.world.keyboard.RIGHT &&
+          this.x < this.world.level.level_end_x
+        ) {
+          this.moveRight();
+          this.otherDirection = false;
+        }
+        if (this.world.keyboard.LEFT && this.x > -500) {
+          this.moveLeft();
+          this.otherDirection = true;
+        }
+        this.world.camera_x = -this.x + 50;
+      } else {
+        clearInterval(move);
       }
-      if (this.world.keyboard.LEFT && this.x > -500) {
-        this.moveLeft();
-        this.otherDirection = true;
-      }
-      this.world.camera_x = -this.x + 50;
     }, 1000 / 60);
   }
 
   animateMovementY() {
-    setInterval(() => {
-      if (this.world.keyboard.UP && this.y > -100) {
-        this.moveUp();
-      }
-      if (this.world.keyboard.DOWN && this.y < 275) {
-        this.moveDown();
+    let move = setInterval(() => {
+      if (!this.isDead()) {
+        if (this.world.keyboard.UP && this.y > -100) {
+          this.moveUp();
+        }
+        if (this.world.keyboard.DOWN && this.y < 275) {
+          this.moveDown();
+        }
+      } else {
+        clearInterval(move);
       }
     }, 1000 / 60);
   }
 
   animateAttack() {
-    setInterval(() => {
-      if (this.world.keyboard.SPACE) {
-        this.playAnimation(this.IMAGES_SHOOT);
-      } else if (this.world.keyboard.D) {
-        this.playAnimation(this.IMAGES_SLAP);
+    let attack = setInterval(() => {
+      if (!this.isDead()) {
+        if (this.world.keyboard.SPACE) {
+          this.playAnimation(this.IMAGES_SHOOT);
+        } else if (this.world.keyboard.D) {
+          this.playAnimation(this.IMAGES_SLAP);
+        }
+      } else {
+        clearInterval(attack);
       }
     }, 1000 / 25);
-  }
-
-  animateIdle() {
-    setInterval(() => {
-      if (!this.isAboveGround() && this.isAFK()) {
-        this.playAnimation(this.IMAGES_LONG_IDLE);
-      } else if (this.isAFK()) {
-        this.playAnimation(this.IMAGES_IDLE);
-      }
-    }, 1000 / 8);
   }
 
   isAFK() {

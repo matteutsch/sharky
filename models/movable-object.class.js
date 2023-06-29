@@ -7,7 +7,6 @@ class MovableObject extends DrawableObject {
   lastHit = 0;
   isRising = false;
   movingRight = false;
-  isDying = false;
 
   isColliding(mo) {
     if (this instanceof Character) {
@@ -31,7 +30,6 @@ class MovableObject extends DrawableObject {
     this.energy -= 5;
     if (this.energy < 0) {
       this.energy = 0;
-      this.isDying = true;
     } else {
       this.lastHit = new Date().getTime();
     }
@@ -137,7 +135,6 @@ class MovableObject extends DrawableObject {
 
   playAnimation(images) {
     let i = this.currentImage % images.length;
-
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentImage++;
