@@ -4,10 +4,10 @@ class JellyPurple extends MovableObject {
   speedY = 2 + Math.random();
   acceleration = 0.001 + Math.random();
   IMAGES_PURPLE = [
-    "../img/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png",
-    "../img/2.Enemy/2 Jelly fish/Regular damage/Lila 2.png",
-    "../img/2.Enemy/2 Jelly fish/Regular damage/Lila 3.png",
-    "../img/2.Enemy/2 Jelly fish/Regular damage/Lila 4.png",
+    "img/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png",
+    "img/2.Enemy/2 Jelly fish/Regular damage/Lila 2.png",
+    "img/2.Enemy/2 Jelly fish/Regular damage/Lila 3.png",
+    "img/2.Enemy/2 Jelly fish/Regular damage/Lila 4.png",
   ];
 
   constructor(x, y) {

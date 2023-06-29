@@ -5,12 +5,12 @@ class StatusBar extends DrawableObject {
   height = 50;
 
   IMAGES_HEALTH = [
-    "../img/4. Marcadores/Purple/0_H.png",
-    "../img/4. Marcadores/Purple/20_H.png",
-    "../img/4. Marcadores/Purple/40_H.png",
-    "../img/4. Marcadores/Purple/60_H.png",
-    "../img/4. Marcadores/Purple/80_H.png",
-    "../img/4. Marcadores/Purple/100_H.png",
+    "img/4. Marcadores/Purple/0_H.png",
+    "img/4. Marcadores/Purple/20_H.png",
+    "img/4. Marcadores/Purple/40_H.png",
+    "img/4. Marcadores/Purple/60_H.png",
+    "img/4. Marcadores/Purple/80_H.png",
+    "img/4. Marcadores/Purple/100_H.png",
   ];
 
   percentage;

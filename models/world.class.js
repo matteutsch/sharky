@@ -21,6 +21,7 @@ class World {
     this.setWorld();
     this.run();
   }
+
   setWorld() {
     this.character.world = this;
   }

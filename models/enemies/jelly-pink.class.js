@@ -5,10 +5,10 @@ class JellyPink extends MovableObject {
   acceleration = 0.001 + Math.random();
 
   IMAGES_PINK = [
-    "../img/2.Enemy/2 Jelly fish/Súper dangerous/Pink 1.png",
-    "../img/2.Enemy/2 Jelly fish/Súper dangerous/Pink 2.png",
-    "../img/2.Enemy/2 Jelly fish/Súper dangerous/Pink 3.png",
-    "../img/2.Enemy/2 Jelly fish/Súper dangerous/Pink 4.png",
+    "img/2.Enemy/2 Jelly fish/Super dangerous/Pink 1.png",
+    "img/2.Enemy/2 Jelly fish/Super dangerous/Pink 2.png",
+    "img/2.Enemy/2 Jelly fish/Super dangerous/Pink 3.png",
+    "img/2.Enemy/2 Jelly fish/Super dangerous/Pink 4.png",
   ];
 
   constructor(x, y) {
