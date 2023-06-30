@@ -3,7 +3,7 @@ class CoinBar extends DrawableObject {
   y = 0;
   width = 160;
   height = 50;
-
+  //coins = 0;
   IMAGES_COINS = [
     "img/4. Marcadores/Purple/0_C.png",
     "img/4. Marcadores/Purple/20_C.png",
@@ -17,4 +17,11 @@ class CoinBar extends DrawableObject {
     super();
     this.loadImage(this.IMAGES_COINS[0]);
   }
+
+  //setPercentageCoin() {
+  //  if (this.coins <= 5) {
+  //    let path = this.IMAGES_COINS[this.setCoins];
+  //    this.img = this.imageCache[path];
+  //  }
+  //}
 }

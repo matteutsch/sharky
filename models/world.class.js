@@ -35,9 +35,16 @@ class World {
 
   checkShotObjects() {
     if (this.keyboard.SPACE) {
+      if (!this.character.otherDirection) {
+        (this.positionX = this.character.x + this.character.width),
+          (this.speed = 3);
+      } else if (this.character.otherDirection) {
+        (this.positionX = this.character.x), (this.speed = -3);
+      }
       let bubble = new ShootableObject(
-        this.character.x + this.character.width,
-        this.character.y + this.character.height - 110
+        this.positionX,
+        this.character.y + this.character.height - 110,
+        this.speed
       );
       this.shootableObject.push(bubble);
     }
