@@ -1,6 +1,12 @@
 class ShootableObject extends MovableObject {
-  constructor(x, y, speed) {
-    super().loadImage("img/1.Sharkie/4.Attack/Bubble trap/Bubble.png");
+  IMAGE_POISONED =
+    "img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png";
+  IMAGE_NORMAL = "img/1.Sharkie/4.Attack/Bubble trap/Bubble.png";
+
+  constructor(x, y, speed, img) {
+    super();
+    this.img = img;
+    this.loadImage(this.img);
     this.x = x;
     this.y = y;
     this.width = 30;

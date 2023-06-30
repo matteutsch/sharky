@@ -3,6 +3,8 @@ class PoisonBar extends DrawableObject {
   y = 0;
   width = 160;
   height = 50;
+  poison;
+
   IMAGES_POISON = [
     "img/4. Marcadores/Purple/0_P.png",
     "img/4. Marcadores/Purple/20_P.png",
@@ -14,6 +16,13 @@ class PoisonBar extends DrawableObject {
 
   constructor() {
     super();
-    this.loadImage(this.IMAGES_POISON[1]);
+    this.loadImages(this.IMAGES_POISON);
+    this.setPercentagePoison(0);
+  }
+
+  setPercentagePoison(poison) {
+    this.poison = poison;
+    let path = this.IMAGES_POISON[this.poison];
+    this.img = this.imageCache[path];
   }
 }

@@ -18,20 +18,16 @@ class DrawableObject {
       this.imageCache[path] = img;
     });
   }
+
   draw(ctx) {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
   drawFrame(ctx) {
     if (
-      this instanceof Character ||
-      this instanceof PufferBubble ||
-      this instanceof PufferGreen ||
-      this instanceof PufferRed ||
-      this instanceof JellyGreen ||
-      this instanceof JellyPurple ||
-      this instanceof JellyPink ||
-      this instanceof Endboss ||
-      this instanceof ShootableObject
+      !(this instanceof BackgroundObject) &&
+      !(this instanceof StatusBar) &&
+      !(this instanceof CoinBar) &&
+      !(this instanceof PoisonBar)
     ) {
       ctx.beginPath();
       ctx.lineWidth = "4";

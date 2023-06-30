@@ -4,7 +4,6 @@ class Character extends MovableObject {
   height = 250;
   width = 220;
   speed = 5;
-  isAnimated = true;
 
   IMAGES_IDLE = [
     "img/1.Sharkie/1.IDLE/1.png",
@@ -93,10 +92,6 @@ class Character extends MovableObject {
   ];
 
   world;
-  isDying = false;
-  isIdling = true;
-  isAttacking = false;
-  isSwimming = false;
 
   constructor() {
     super().loadImage(this.IMAGES_IDLE[0]);
@@ -108,7 +103,6 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_HURT_POISON);
     this.loadImages(this.IMAGES_SHOOT);
     this.loadImages(this.IMAGES_SLAP);
-    this.energy = 10000;
     this.animate();
     this.applyGravity();
   }

@@ -11,7 +11,10 @@ class World {
   statusBar = new StatusBar();
   coinBar = new CoinBar();
   poisonBar = new PoisonBar();
+  shotBubble = new ShootableObject();
   shootableObject = [];
+  coins = 0;
+  poison = 0;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -28,33 +31,70 @@ class World {
 
   run() {
     setInterval(() => {
-      this.checkCollisions();
+      this.checkCollisionEnemy();
+      this.checkCollisionCollectables();
       this.checkShotObjects();
     }, 200);
   }
 
   checkShotObjects() {
-    if (this.keyboard.SPACE) {
+    if (this.keyboard.SPACE && this.shootableObject.length <= 5) {
       if (!this.character.otherDirection) {
         (this.positionX = this.character.x + this.character.width),
           (this.speed = 3);
       } else if (this.character.otherDirection) {
         (this.positionX = this.character.x), (this.speed = -3);
       }
+      if (this.poison > 0) {
+        this.img = this.shotBubble.IMAGE_POISONED;
+      } else {
+        this.img = this.shotBubble.IMAGE_NORMAL;
+      }
       let bubble = new ShootableObject(
         this.positionX,
         this.character.y + this.character.height - 110,
-        this.speed
+        this.speed,
+        this.img
       );
+      if (this.poison > 0) {
+        this.poison--;
+        this.poisonBar.setPercentagePoison(this.poison);
+      }
       this.shootableObject.push(bubble);
+
+      setTimeout(() => {
+        this.shootableObject.splice(bubble, 1);
+      }, 3000);
     }
   }
 
-  checkCollisions() {
+  checkCollisionEnemy() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         this.character.hit();
         this.statusBar.setPercentageHealth(this.character.energy);
+        if (this.coins > 0) {
+          this.coins--;
+          this.coinBar.setPercentageCoin(this.coins);
+        }
+      }
+    });
+  }
+
+  checkCollisionCollectables() {
+    this.collectables.forEach((collectable, index) => {
+      if (this.character.isColliding(collectable)) {
+        if (collectable instanceof Coin) {
+          if (this.coins <= 4) {
+            this.coins++;
+            this.collectables.splice(index, 1);
+            this.coinBar.setPercentageCoin(this.coins);
+          }
+        } else if (this.poison <= 4) {
+          this.poison++;
+          this.collectables.splice(index, 1);
+          this.poisonBar.setPercentagePoison(this.poison);
+        }
       }
     });
   }
