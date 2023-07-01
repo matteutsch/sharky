@@ -5,11 +5,13 @@ body {
   align-items: center;
   font-family: "LuckiestGuy-Regular";
   background-color: aqua;
+  background-image: url("img/3. Background/Layers/5. Water/L1.png");
 }
 
 h1 {
   font-size: 48px;
   margin: 4vh;
+  text-shadow: 4px 4px 4px rgba(10, 64, 182, 0.5);
 }
 
 #canvas {

@@ -44,6 +44,15 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  isClose(mo) {
+    return (
+      mo.x - this.x <= 100 &&
+      mo.x - this.x >= -100 &&
+      mo.y - this.y <= 50 &&
+      mo.y - this.y >= -50
+    );
+  }
+
   hit() {
     this.energy -= 5;
     if (this.energy < 0) {
@@ -59,7 +68,7 @@ class MovableObject extends DrawableObject {
   }
 
   isDead() {
-    return this.energy == 0;
+    return this.energy <= 0;
   }
 
   applyGravity() {

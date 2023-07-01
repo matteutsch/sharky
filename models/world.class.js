@@ -17,6 +17,7 @@ class World {
   poison = 0;
   damage = 1;
   energy;
+  lastKeyDown;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -37,6 +38,8 @@ class World {
       this.checkCollisionBubble();
       this.checkCollisionCollectables();
       this.checkShotObjects();
+      this.checkDeadEnemy();
+      this.checkAFK();
     }, 150);
   }
 
@@ -52,11 +55,7 @@ class World {
       } else if (this.character.otherDirection) {
         (this.positionX = this.character.x), (this.speed = -3);
       }
-      if (this.poison > 0) {
-        this.img = this.shotBubble.IMAGE_POISONED;
-      } else {
-        this.img = this.shotBubble.IMAGE_NORMAL;
-      }
+      this.returnPoison();
       let bubble = new ShootableObject(
         this.positionX,
         this.character.y + this.character.height - 110,
@@ -107,7 +106,7 @@ class World {
 
   checkCollisionBubble() {
     this.shootableObject.forEach((bubble, bubbleIndex) => {
-      this.enemies.forEach((enemy, enemyIndex) => {
+      this.enemies.forEach((enemy) => {
         if (this.poison > 0) {
           this.damage = 10;
         } else {
@@ -115,13 +114,40 @@ class World {
         }
         if (bubble.isColliding(enemy)) {
           enemy.energy -= this.damage;
-          if (enemy.energy <= 0) {
-            this.enemies.splice(enemyIndex, 1);
-          }
+          this.checkDeadEnemy();
           this.shootableObject.splice(bubbleIndex, 1);
         }
       });
     });
+  }
+
+  checkDeadEnemy() {
+    this.enemies.forEach((enemy, enemyIndex) => {
+      if (enemy.energy <= 0) {
+        this.enemies.splice(enemyIndex, 1);
+      }
+    });
+  }
+
+  checkAFK() {
+    if (
+      this.keyboard.RIGHT ||
+      this.keyboard.LEFT ||
+      this.keyboard.UP ||
+      this.keyboard.DOWN ||
+      this.keyboard.SPACE ||
+      this.keyboard.D
+    ) {
+      this.lastKeyDown = new Date().getTime();
+    }
+  }
+
+  returnPoison() {
+    if (this.poison > 0) {
+      return (this.img = this.shotBubble.IMAGE_POISONED);
+    } else {
+      return (this.img = this.shotBubble.IMAGE_NORMAL);
+    }
   }
 
   draw() {

@@ -246,5 +246,8 @@ class Character extends MovableObject {
       this.world.keyboard.D == false &&
       this.world.keyboard.SPACE == false
     );
+    //let timepassed = new Date().getTime() - this.world.lastKeyDown;
+    //timepassed = timepassed / 1000;
+    //return timepassed < 1;
   }
 }
