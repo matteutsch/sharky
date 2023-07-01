@@ -10,19 +10,37 @@ class MovableObject extends DrawableObject {
 
   isColliding(mo) {
     if (this instanceof Character) {
-      return (
-        this.x + 50 + this.width - 80 > mo.x &&
-        this.y + 120 + this.height - 170 > mo.y &&
-        this.x + 50 < mo.x &&
-        this.y + 120 < mo.y + mo.height
-      );
+      if (mo instanceof Endboss) {
+        return (
+          this.x + 50 + this.width > mo.x + 100 &&
+          this.y + 120 + this.height > mo.y + 200 + mo.height - 280 &&
+          this.x + 50 < mo.x + 20 + mo.width - 60 &&
+          this.y + 120 < mo.y + 200 + mo.height - 280
+        );
+      } else {
+        return (
+          this.x + 50 + this.width - 80 > mo.x &&
+          this.y + 120 + this.height - 170 > mo.y &&
+          this.x + 50 < mo.x &&
+          this.y + 120 < mo.y + mo.height
+        );
+      }
     } else {
-      return (
-        this.x + this.width > mo.x &&
-        this.y + this.height > mo.y &&
-        this.x < mo.x &&
-        this.y < mo.y + mo.height
-      );
+      if (mo instanceof Endboss) {
+        return (
+          this.x + this.width > mo.x + 20 &&
+          this.y + this.height > mo.y + 200 &&
+          this.x < mo.x + 20 &&
+          this.y < mo.y + 200 + mo.height - 280
+        );
+      } else {
+        return (
+          this.x + this.width > mo.x &&
+          this.y + this.height > mo.y &&
+          this.x < mo.x &&
+          this.y < mo.y + mo.height
+        );
+      }
     }
   }
 

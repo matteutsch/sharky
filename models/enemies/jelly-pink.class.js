@@ -18,6 +18,7 @@ class JellyPink extends MovableObject {
     this.loadImages(this.IMAGES_PINK);
     this.animate();
     this.riseAndSink();
+    this.energy = 20;
   }
 
   animate() {

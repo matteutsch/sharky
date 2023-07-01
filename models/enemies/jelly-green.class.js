@@ -18,6 +18,7 @@ class JellyGreen extends MovableObject {
     this.loadImages(this.IMAGES_GREEN);
     this.animate();
     this.riseAndSink();
+    this.energy = 20;
   }
 
   animate() {

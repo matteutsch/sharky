@@ -105,6 +105,7 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_SLAP);
     this.animate();
     this.applyGravity();
+    this.energy = 10000;
   }
 
   animate() {
@@ -196,7 +197,7 @@ class Character extends MovableObject {
           this.moveRight();
           this.otherDirection = false;
         }
-        if (this.world.keyboard.LEFT && this.x > -500) {
+        if (this.world.keyboard.LEFT && this.x > -600) {
           this.moveLeft();
           this.otherDirection = true;
         }

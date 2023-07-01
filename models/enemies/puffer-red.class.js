@@ -5,7 +5,7 @@ class PufferRed extends MovableObject {
   y = 150 + Math.random() * 200;
   speed = 0.8 + Math.random() * 0.5;
 
-  IMAGES_RED = [
+  IMAGES_SWIM = [
     "img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/3.swim1.png",
     "img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/3.swim2.png",
     "img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/3.swim3.png",
@@ -15,8 +15,9 @@ class PufferRed extends MovableObject {
 
   constructor() {
     super();
-    this.loadImages(this.IMAGES_RED);
+    this.loadImages(this.IMAGES_SWIM);
     this.animate();
+    this.energy = 10;
   }
 
   animate() {
@@ -25,7 +26,7 @@ class PufferRed extends MovableObject {
     }, 1000 / 60);
 
     setInterval(() => {
-      this.playAnimation(this.IMAGES_RED);
+      this.playAnimation(this.IMAGES_SWIM);
     }, 1000 / 11);
   }
 }

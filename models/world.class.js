@@ -15,6 +15,8 @@ class World {
   shootableObject = [];
   coins = 0;
   poison = 0;
+  damage = 1;
+  energy;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -32,15 +34,20 @@ class World {
   run() {
     setInterval(() => {
       this.checkCollisionEnemy();
+      this.checkCollisionBubble();
       this.checkCollisionCollectables();
       this.checkShotObjects();
-    }, 200);
+    }, 150);
   }
 
   checkShotObjects() {
-    if (this.keyboard.SPACE && this.shootableObject.length <= 5) {
+    if (
+      this.keyboard.SPACE &&
+      this.shootableObject.length <= 5 &&
+      !this.character.isHurt()
+    ) {
       if (!this.character.otherDirection) {
-        (this.positionX = this.character.x + this.character.width),
+        (this.positionX = this.character.x + this.character.width - 50),
           (this.speed = 3);
       } else if (this.character.otherDirection) {
         (this.positionX = this.character.x), (this.speed = -3);
@@ -61,15 +68,14 @@ class World {
         this.poisonBar.setPercentagePoison(this.poison);
       }
       this.shootableObject.push(bubble);
-
-      setTimeout(() => {
-        this.shootableObject.splice(bubble, 1);
-      }, 3000);
     }
+    this.shootableObject = this.shootableObject.filter(
+      (bubble) => bubble.y >= 0
+    );
   }
 
   checkCollisionEnemy() {
-    this.level.enemies.forEach((enemy) => {
+    this.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         this.character.hit();
         this.statusBar.setPercentageHealth(this.character.energy);
@@ -96,6 +102,25 @@ class World {
           this.poisonBar.setPercentagePoison(this.poison);
         }
       }
+    });
+  }
+
+  checkCollisionBubble() {
+    this.shootableObject.forEach((bubble, bubbleIndex) => {
+      this.enemies.forEach((enemy, enemyIndex) => {
+        if (this.poison > 0) {
+          this.damage = 10;
+        } else {
+          this.damage = 1;
+        }
+        if (bubble.isColliding(enemy)) {
+          enemy.energy -= this.damage;
+          if (enemy.energy <= 0) {
+            this.enemies.splice(enemyIndex, 1);
+          }
+          this.shootableObject.splice(bubbleIndex, 1);
+        }
+      });
     });
   }
 

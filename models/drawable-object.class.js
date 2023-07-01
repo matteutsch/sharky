@@ -34,6 +34,8 @@ class DrawableObject {
       ctx.strokeStyle = "transparent";
       if (this instanceof Character) {
         ctx.rect(this.x + 50, this.y + 120, this.width - 80, this.height - 170);
+      } else if (this instanceof Endboss) {
+        ctx.rect(this.x + 20, this.y + 200, this.width - 60, this.height - 280);
       } else {
         ctx.rect(this.x, this.y, this.width, this.height);
       }

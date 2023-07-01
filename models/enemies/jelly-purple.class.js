@@ -17,6 +17,7 @@ class JellyPurple extends MovableObject {
     this.loadImages(this.IMAGES_PURPLE);
     this.animate();
     this.riseAndSink();
+    this.energy = 10;
   }
 
   animate() {
