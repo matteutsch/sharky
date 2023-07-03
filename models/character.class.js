@@ -3,7 +3,7 @@ class Character extends MovableObject {
   y = 150;
   height = 250;
   width = 220;
-  speed = 5;
+  speed = 15; ///////////////////
 
   IMAGES_IDLE = [
     "img/1.Sharkie/1.IDLE/1.png",
@@ -105,7 +105,7 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_SLAP);
     this.animate();
     this.applyGravity();
-    this.energy = 10000;
+    this.energy = 10000; ///////////
   }
 
   animate() {
@@ -115,7 +115,7 @@ class Character extends MovableObject {
     this.animateMovementY();
     this.animateAttack();
     this.animateHurt();
-    this.animateDeath();
+    this.animateDeath(this.IMAGES_DEAD, this.IMAGES_DEAD.length);
   }
 
   animateIdle() {
@@ -142,31 +142,6 @@ class Character extends MovableObject {
         clearInterval(hurt);
       }
     }, 1000 / 60);
-  }
-
-  animateDeath() {
-    let i = 0;
-    let dead = setInterval(() => {
-      if (this.isDead()) {
-        this.loadImage(this.IMAGES_DEAD[i]);
-        i++;
-        if (i >= 12) {
-          this.moveUpInterval();
-          clearInterval(dead);
-        }
-      }
-    }, 1000 / 12);
-  }
-
-  moveUpInterval() {
-    let i = 0;
-    let move = setInterval(() => {
-      this.moveUp();
-      i++;
-      if (i > 100) {
-        clearInterval(move);
-      }
-    }, 1000 / 10);
   }
 
   animateSwim() {

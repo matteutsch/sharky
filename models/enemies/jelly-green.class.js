@@ -1,32 +1,34 @@
 class JellyGreen extends MovableObject {
-  height = 100;
+  height = 120;
   width = 100;
   speedY = 2 + Math.random();
   acceleration = 0.001 + Math.random();
 
-  IMAGES_GREEN = [
+  IMAGES_SWIM = [
     "img/2.Enemy/2 Jelly fish/Super dangerous/Green 1.png",
     "img/2.Enemy/2 Jelly fish/Super dangerous/Green 2.png",
     "img/2.Enemy/2 Jelly fish/Super dangerous/Green 3.png",
     "img/2.Enemy/2 Jelly fish/Super dangerous/Green 4.png",
+  ];
+  IMAGES_DEAD = [
+    "img/2.Enemy/2 Jelly fish/Dead/green/g1.png",
+    "img/2.Enemy/2 Jelly fish/Dead/green/g2.png",
+    "img/2.Enemy/2 Jelly fish/Dead/green/g3.png",
+    "img/2.Enemy/2 Jelly fish/Dead/green/g4.png",
   ];
 
   constructor(x, y) {
     super();
     this.x = x;
     this.y = y;
-    this.loadImages(this.IMAGES_GREEN);
-    this.animate();
-    this.riseAndSink();
     this.energy = 20;
+    this.loadImages(this.IMAGES_SWIM);
+    this.animate();
   }
 
   animate() {
-    setInterval(() => {
-      let i = this.currentImage % this.IMAGES_GREEN.length;
-      let path = this.IMAGES_GREEN[i];
-      this.img = this.imageCache[path];
-      this.currentImage++;
-    }, 1000 / 10);
+    this.animateSwimEnemies(this.IMAGES_SWIM);
+    this.animateMovementJelly();
+    this.animateDeath(this.IMAGES_DEAD, this.IMAGES_DEAD.length);
   }
 }

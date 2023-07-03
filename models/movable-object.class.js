@@ -7,6 +7,7 @@ class MovableObject extends DrawableObject {
   lastHit = 0;
   isRising = false;
   movingRight = false;
+  gotHit = false;
 
   isColliding(mo) {
     if (this instanceof Character) {
@@ -44,14 +45,117 @@ class MovableObject extends DrawableObject {
     }
   }
 
-  isClose(mo) {
-    return (
-      mo.x - this.x <= 100 &&
-      mo.x - this.x >= -100 &&
-      mo.y - this.y <= 50 &&
-      mo.y - this.y >= -50
-    );
+  playAnimation(images) {
+    let i = this.currentImage % images.length;
+    let path = images[i];
+    this.img = this.imageCache[path];
+    this.currentImage++;
   }
+
+  applyGravity() {
+    setInterval(() => {
+      if (this.isAboveGround()) {
+        this.y += this.speedY;
+        this.speedY += this.acceleration;
+      }
+    }, 1000 / 25);
+  }
+
+  riseAndSink() {
+    if (this.isBelowSurface() && this.isAboveGround()) {
+      if (this.isRising) {
+        this.y -= this.speedY;
+      } else {
+        this.y += this.speedY;
+      }
+    } else if (this.reachedBottom()) {
+      this.isRising = true;
+      this.y -= this.speedY;
+    } else if (this.reachedTop()) {
+      this.isRising = false;
+      this.y += this.speedY;
+    }
+  }
+
+  backAndForth() {
+    if (this.isWithinLevel()) {
+      if (!this.movingRight) {
+        this.moveLeft();
+      } else {
+        this.moveRight();
+      }
+    } else if (this.reachedLeftLevelEnd()) {
+      this.movingRight = true;
+      this.moveRight();
+    } else if (this.reachedRightLevelEnd()) {
+      this.movingRight = false;
+      this.moveLeft();
+    }
+  }
+
+  animateDeath(img, arr) {
+    let i = 0;
+    let dead = setInterval(() => {
+      if (this.isDead()) {
+        this.loadImage(img[i]);
+        i++;
+        if (i >= arr) {
+          this.moveUpInterval();
+          clearInterval(dead);
+        }
+      }
+    }, 1000 / arr);
+  }
+
+  moveUpInterval() {
+    let i = 0;
+    let move = setInterval(() => {
+      this.moveUp();
+      i++;
+      if (i > 100) {
+        clearInterval(move);
+      }
+    }, 1000 / 10);
+  }
+
+  animateSwimEnemies(img) {
+    let swim = setInterval(() => {
+      if (!this.isDead()) {
+        this.playAnimation(img);
+      } else {
+        clearInterval(swim);
+      }
+    }, 1000 / 11);
+  }
+
+  animateMovementPuffer() {
+    let movement = setInterval(() => {
+      if (!this.isDead()) {
+        this.backAndForth();
+      } else {
+        clearInterval(movement);
+      }
+    }, 1000 / 60);
+  }
+
+  animateMovementJelly() {
+    let movement = setInterval(() => {
+      if (!this.isDead()) {
+        this.riseAndSink();
+      } else {
+        clearInterval(movement);
+      }
+    }, 1000 / 60);
+  }
+
+  //isClose(mo) {
+  //  return (
+  //    mo.x - this.x <= 100 &&
+  //    mo.x - this.x >= -100 &&
+  //    mo.y - this.y <= 50 &&
+  //    mo.y - this.y >= -50
+  //  );
+  //}
 
   hit() {
     this.energy -= 5;
@@ -69,49 +173,6 @@ class MovableObject extends DrawableObject {
 
   isDead() {
     return this.energy <= 0;
-  }
-
-  applyGravity() {
-    setInterval(() => {
-      if (this.isAboveGround()) {
-        this.y += this.speedY;
-        this.speedY += this.acceleration;
-      }
-    }, 1000 / 25);
-  }
-
-  riseAndSink() {
-    setInterval(() => {
-      if (this.isBelowSurface() && this.isAboveGround()) {
-        if (this.isRising) {
-          this.y -= this.speedY;
-        } else {
-          this.y += this.speedY;
-        }
-      } else if (this.reachedBottom()) {
-        this.isRising = true;
-        this.y -= this.speedY;
-      } else if (this.reachedTop()) {
-        this.isRising = false;
-        this.y += this.speedY;
-      }
-    }, 1000 / 60);
-  }
-
-  backAndForth() {
-    if (this.isWithinLevel()) {
-      if (!this.movingRight) {
-        this.moveLeft();
-      } else {
-        this.moveRight();
-      }
-    } else if (this.reachedLeftLevelEnd()) {
-      this.movingRight = true;
-      this.moveRight();
-    } else if (this.reachedRightLevelEnd()) {
-      this.movingRight = false;
-      this.moveLeft();
-    }
   }
 
   isAboveGround() {
@@ -158,12 +219,5 @@ class MovableObject extends DrawableObject {
   }
   moveUp() {
     this.y -= this.speed;
-  }
-
-  playAnimation(images) {
-    let i = this.currentImage % images.length;
-    let path = images[i];
-    this.img = this.imageCache[path];
-    this.currentImage++;
   }
 }

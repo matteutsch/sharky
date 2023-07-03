@@ -17,7 +17,6 @@ class World {
   poison = 0;
   damage = 1;
   energy;
-  lastKeyDown;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -39,7 +38,6 @@ class World {
       this.checkCollisionCollectables();
       this.checkShotObjects();
       this.checkDeadEnemy();
-      this.checkAFK();
     }, 150);
   }
 
@@ -55,12 +53,13 @@ class World {
       } else if (this.character.otherDirection) {
         (this.positionX = this.character.x), (this.speed = -3);
       }
-      this.returnPoison();
+      this.returnBubbleStatus();
       let bubble = new ShootableObject(
         this.positionX,
         this.character.y + this.character.height - 110,
         this.speed,
-        this.img
+        this.img,
+        this.damage
       );
       if (this.poison > 0) {
         this.poison--;
@@ -107,14 +106,8 @@ class World {
   checkCollisionBubble() {
     this.shootableObject.forEach((bubble, bubbleIndex) => {
       this.enemies.forEach((enemy) => {
-        if (this.poison > 0) {
-          this.damage = 10;
-        } else {
-          this.damage = 1;
-        }
         if (bubble.isColliding(enemy)) {
           enemy.energy -= this.damage;
-          this.checkDeadEnemy();
           this.shootableObject.splice(bubbleIndex, 1);
         }
       });
@@ -122,31 +115,24 @@ class World {
   }
 
   checkDeadEnemy() {
+    let enemyDeleted = false;
     this.enemies.forEach((enemy, enemyIndex) => {
-      if (enemy.energy <= 0) {
-        this.enemies.splice(enemyIndex, 1);
+      if (enemy.energy <= 0 && !enemyDeleted) {
+        setTimeout(() => {
+          this.enemies.splice(enemyIndex, 1);
+          enemyDeleted = true;
+        }, 1500);
       }
     });
   }
 
-  checkAFK() {
-    if (
-      this.keyboard.RIGHT ||
-      this.keyboard.LEFT ||
-      this.keyboard.UP ||
-      this.keyboard.DOWN ||
-      this.keyboard.SPACE ||
-      this.keyboard.D
-    ) {
-      this.lastKeyDown = new Date().getTime();
-    }
-  }
-
-  returnPoison() {
+  returnBubbleStatus() {
     if (this.poison > 0) {
-      return (this.img = this.shotBubble.IMAGE_POISONED);
+      this.img = this.shotBubble.IMAGE_POISONED;
+      this.damage = 10;
     } else {
-      return (this.img = this.shotBubble.IMAGE_NORMAL);
+      this.img = this.shotBubble.IMAGE_NORMAL;
+      this.damage = 1;
     }
   }
 

@@ -26,18 +26,15 @@ class PufferOrange extends MovableObject {
 
   constructor() {
     super();
+    this.energy = 20;
     this.loadImages(this.IMAGES_SWIM);
     this.loadImages(this.IMAGES_DEAD);
     this.animate();
-    this.energy = 20;
   }
 
   animate() {
-    setInterval(() => {
-      this.playAnimation(this.IMAGES_SWIM);
-    }, 1000 / 11);
-    setInterval(() => {
-      this.backAndForth();
-    }, 1000 / 60);
+    this.animateSwimEnemies(this.IMAGES_SWIM);
+    this.animateMovementPuffer();
+    this.animateDeath(this.IMAGES_DEAD, this.IMAGES_DEAD.length);
   }
 }
