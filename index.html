@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="style.css" />
     <script src="models/drawable-object.class.js"></script>
     <script src="models/movable-object.class.js"></script>
+    <script src="models/keyboard.class.js"></script>
     <script src="models/character.class.js"></script>
     <script src="models/enemies/jelly-purple.class.js"></script>
     <script src="models/enemies/jelly-green.class.js"></script>
@@ -28,15 +29,39 @@
     <script src="models/collectables/poison.class.js"></script>
     <script src="models/world.class.js"></script>
     <script src="models/background-object.class.js"></script>
-    <script src="models/keyboard.class.js"></script>
     <script src="models/shootable-object.class.js"></script>
     <script src="models/endboss.class.js"></script>
     <script src="models/level.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
   </head>
-  <body onload="init()">
-    <h1>Sharky</h1>
-    <canvas width="900" height="500" id="canvas"></canvas>
+  <body>
+    <div id="start-screen">
+      <div class="start-container">
+        <h1>Sharky</h1>
+        <div>
+          <button
+            onclick="hideStartShowCanvas(), init()"
+            class="button"
+            id="start-button"
+          >
+            Play
+          </button>
+          <button
+            onclick="toggleSettings()"
+            class="button"
+            id="settings-button"
+          >
+            Settings
+          </button>
+        </div>
+        <div class="d-none" id="howToPlay">
+          <img src="img/6.Botones/Instructions 2.png" />
+        </div>
+      </div>
+    </div>
+    <div>
+      <canvas class="d-none" width="900" height="500" id="canvas"></canvas>
+    </div>
   </body>
 </html>

@@ -17,6 +17,7 @@ class World {
   poison = 0;
   damage = 1;
   energy;
+  dead = false;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -74,7 +75,7 @@ class World {
 
   checkCollisionEnemy() {
     this.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
+      if (this.character.isColliding(enemy) && !enemy.dead) {
         this.character.hit();
         this.statusBar.setPercentageHealth(this.character.energy);
         if (this.coins > 0) {
@@ -106,8 +107,8 @@ class World {
   checkCollisionBubble() {
     this.shootableObject.forEach((bubble, bubbleIndex) => {
       this.enemies.forEach((enemy) => {
-        if (bubble.isColliding(enemy)) {
-          enemy.energy -= this.damage;
+        if (bubble.isColliding(enemy) && !enemy.dead) {
+          enemy.energy -= bubble.damage;
           this.shootableObject.splice(bubbleIndex, 1);
         }
       });
@@ -115,12 +116,12 @@ class World {
   }
 
   checkDeadEnemy() {
-    let enemyDeleted = false;
     this.enemies.forEach((enemy, enemyIndex) => {
-      if (enemy.energy <= 0 && !enemyDeleted) {
+      if (enemy.energy <= 0 && !enemy.dead) {
+        enemy.dead = true;
         setTimeout(() => {
+          console.log("Enemy", enemyIndex, "is dead");
           this.enemies.splice(enemyIndex, 1);
-          enemyDeleted = true;
         }, 1500);
       }
     });

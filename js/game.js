@@ -7,6 +7,18 @@ function init() {
   world = new World(canvas, keyboard);
 }
 
+function hideStartShowCanvas() {
+  let overlay = document.getElementById("start-screen");
+  overlay.classList.add("d-none");
+  let canvas = document.getElementById("canvas");
+  canvas.classList.remove("d-none");
+}
+
+function toggleSettings() {
+  let settings = document.getElementById("howToPlay");
+  settings.classList.toggle("d-none");
+}
+
 window.addEventListener("keydown", (e) => {
   if (e.keyCode == 39) {
     keyboard.RIGHT = true;

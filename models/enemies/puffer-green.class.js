@@ -30,6 +30,7 @@ class PufferGreen extends MovableObject {
     this.energy = 10;
     this.loadImages(this.IMAGES_SWIM);
     this.loadImages(this.IMAGES_DEAD);
+    this.loadImages(this.IMAGES_TRANSITION);
     this.animate();
   }
 
