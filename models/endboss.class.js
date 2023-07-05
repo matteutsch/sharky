@@ -16,7 +16,7 @@ class Endboss extends MovableObject {
     "img/2.Enemy/3 Final Enemy/1.Introduce/9.png",
     "img/2.Enemy/3 Final Enemy/1.Introduce/10.png",
   ];
-  IMAGES_IDLE = [
+  IMAGES_SWIM = [
     "img/2.Enemy/3 Final Enemy/2.floating/1.png",
     "img/2.Enemy/3 Final Enemy/2.floating/2.png",
     "img/2.Enemy/3 Final Enemy/2.floating/3.png",
@@ -53,15 +53,36 @@ class Endboss extends MovableObject {
     "img/2.Enemy/3 Final Enemy/Hurt/4.png",
   ];
 
+  hadFirstContact = false;
+
   constructor() {
     super();
-    this.loadImages(this.IMAGES_IDLE);
+    this.loadImages(this.IMAGES_SWIM);
+    this.loadImages(this.IMAGES_DEAD);
+    this.loadImages(this.IMAGES_INTRODUCE);
     this.animate();
     this.energy = 50;
   }
 
   animate() {
-    this.animateSwimEnemies(this.IMAGES_IDLE);
+    this.animateIntro();
     this.animateDeath(this.IMAGES_DEAD, this.IMAGES_DEAD.length);
+  }
+
+  animateIntro() {
+    let i = 0;
+    setInterval(() => {
+      if (i < 10) {
+        this.playAnimation(this.IMAGES_INTRODUCE);
+      } else {
+        this.playAnimation(this.IMAGES_SWIM);
+      }
+      i++;
+
+      if (this.x > 1650 && !this.hadFirstContact) {
+        i = 0;
+        this.hadFirstContact = true;
+      }
+    }, 150);
   }
 }

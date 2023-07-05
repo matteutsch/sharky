@@ -26,7 +26,7 @@ class PufferOrange extends MovableObject {
 
   constructor() {
     super();
-    this.energy = 20;
+    this.energy = 10;
     this.loadImages(this.IMAGES_SWIM);
     this.loadImages(this.IMAGES_DEAD);
     this.animate();

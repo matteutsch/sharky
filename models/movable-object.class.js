@@ -112,7 +112,7 @@ class MovableObject extends DrawableObject {
     let move = setInterval(() => {
       this.moveUp();
       i++;
-      if (i > 100) {
+      if (i > 500) {
         clearInterval(move);
       }
     }, 1000 / 10);

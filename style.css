@@ -6,7 +6,6 @@ body {
   font-family: "LuckiestGuy-Regular";
   background-color: aqua;
   background-image: url("img/3. Background/Layers/5. Water/L1.png");
-  box-sizing: border-box;
   margin: 0;
   height: 100vh;
 }
@@ -21,10 +20,12 @@ h1 {
   display: none !important;
 }
 
-#canvas {
+canvas {
   background-color: black;
   border-radius: 13%;
   border: 5px solid rgb(42, 64, 231);
+  display: block;
+  box-sizing: border-box;
 }
 
 #start-screen {
@@ -97,4 +98,18 @@ h1 {
 @font-face {
   font-family: "LuckiestGuy-Regular";
   src: url("Font/LuckiestGuy-Regular.ttf");
+}
+
+@media only screen and (max-width: 900px) {
+  canvas {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-height: 500px) {
+  canvas {
+    height: 100vh;
+    border: none;
+    border-radius: 0;
+  }
 }

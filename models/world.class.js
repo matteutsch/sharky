@@ -120,7 +120,6 @@ class World {
       if (enemy.energy <= 0 && !enemy.dead) {
         enemy.dead = true;
         setTimeout(() => {
-          console.log("Enemy", enemyIndex, "is dead");
           this.enemies.splice(enemyIndex, 1);
         }, 1500);
       }

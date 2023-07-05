@@ -7,7 +7,7 @@ function init() {
   world = new World(canvas, keyboard);
 }
 
-function hideStartShowCanvas() {
+function showCanvas() {
   let overlay = document.getElementById("start-screen");
   overlay.classList.add("d-none");
   let canvas = document.getElementById("canvas");
