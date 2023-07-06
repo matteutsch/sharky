@@ -5,7 +5,7 @@ class ShootableObject extends MovableObject {
 
   constructor(x, y, speed, img, damage) {
     super();
-    this.img = img;
+    this.img = img || this.IMAGE_NORMAL;
     this.loadImage(this.img);
     this.x = x;
     this.y = y;

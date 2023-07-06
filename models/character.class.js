@@ -3,7 +3,8 @@ class Character extends MovableObject {
   y = 150;
   height = 250;
   width = 220;
-  speed = 5; ///////////////////
+  speed = 22;
+  world;
 
   IMAGES_IDLE = [
     "img/1.Sharkie/1.IDLE/1.png",
@@ -91,8 +92,6 @@ class Character extends MovableObject {
     "img/1.Sharkie/4.Attack/Fin slap/8.png",
   ];
 
-  world;
-
   constructor() {
     super().loadImage(this.IMAGES_IDLE[0]);
     this.loadImages(this.IMAGES_SWIM);
@@ -105,7 +104,7 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_SLAP);
     this.animate();
     this.applyGravity();
-    //this.energy = 10000; ///////////
+    this.energy = 9001;
   }
 
   animate() {

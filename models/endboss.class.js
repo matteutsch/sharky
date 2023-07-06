@@ -3,6 +3,9 @@ class Endboss extends MovableObject {
   width = 400;
   x = 2200;
   y = 10;
+  world;
+  hadFirstContact = false;
+  swim = false;
 
   IMAGES_INTRODUCE = [
     "img/2.Enemy/3 Final Enemy/1.Introduce/1.png",
@@ -39,6 +42,12 @@ class Endboss extends MovableObject {
     "img/2.Enemy/3 Final Enemy/Attack/5.png",
     "img/2.Enemy/3 Final Enemy/Attack/6.png",
   ];
+  IMAGES_HURT = [
+    "img/2.Enemy/3 Final Enemy/Hurt/1.png",
+    "img/2.Enemy/3 Final Enemy/Hurt/2.png",
+    "img/2.Enemy/3 Final Enemy/Hurt/3.png",
+    "img/2.Enemy/3 Final Enemy/Hurt/4.png",
+  ];
   IMAGES_DEAD = [
     "img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 6.png",
     "img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 7.png",
@@ -46,43 +55,51 @@ class Endboss extends MovableObject {
     "img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 9.png",
     "img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png",
   ];
-  IMAGES_HURT = [
-    "img/2.Enemy/3 Final Enemy/Hurt/1.png",
-    "img/2.Enemy/3 Final Enemy/Hurt/2.png",
-    "img/2.Enemy/3 Final Enemy/Hurt/3.png",
-    "img/2.Enemy/3 Final Enemy/Hurt/4.png",
-  ];
-
-  hadFirstContact = false;
 
   constructor() {
-    super();
-    this.loadImages(this.IMAGES_SWIM);
-    this.loadImages(this.IMAGES_DEAD);
+    super().loadImage(this.IMAGES_INTRODUCE[0]);
     this.loadImages(this.IMAGES_INTRODUCE);
+    this.loadImages(this.IMAGES_SWIM);
+    this.loadImages(this.IMAGES_ATTACK);
+    this.loadImages(this.IMAGES_HURT);
+    this.loadImages(this.IMAGES_DEAD);
     this.animate();
     this.energy = 50;
   }
 
   animate() {
     this.animateIntro();
+    this.animateSwim();
+    //this.animateHurt(this.IMAGES_HURT);
     this.animateDeath(this.IMAGES_DEAD, this.IMAGES_DEAD.length);
+  }
+
+  animateSwim() {
+    if (this.swim) {
+      this.animateSwimEnemies(this.IMAGES_SWIM);
+    }
   }
 
   animateIntro() {
     let i = 0;
-    setInterval(() => {
-      if (i < 10) {
-        this.playAnimation(this.IMAGES_INTRODUCE);
-      } else {
-        this.playAnimation(this.IMAGES_SWIM);
-      }
-      i++;
-
-      if (this.x > 1650 && !this.hadFirstContact) {
+    let intro = setInterval(() => {
+      if (
+        this.world &&
+        this.world.character.x > 1650 &&
+        !this.hadFirstContact
+      ) {
         i = 0;
         this.hadFirstContact = true;
       }
-    }, 150);
+      if (i < 10 && this.hadFirstContact) {
+        this.loadImage(this.IMAGES_INTRODUCE[i]);
+        i++;
+      }
+      if (i >= 10) {
+        this.swim = true;
+        this.animateSwim();
+        clearInterval(intro);
+      }
+    }, 100);
   }
 }

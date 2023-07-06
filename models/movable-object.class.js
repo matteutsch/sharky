@@ -7,7 +7,6 @@ class MovableObject extends DrawableObject {
   lastHit = 0;
   isRising = false;
   movingRight = false;
-  gotHit = false;
 
   isColliding(mo) {
     if (this instanceof Character) {
@@ -118,6 +117,21 @@ class MovableObject extends DrawableObject {
     }, 1000 / 10);
   }
 
+  //animateHurt(img) {
+  //  let i = 0;
+  //  let hurtInterval = setInterval(() => {
+  //    console.log(this.isHurt());
+  //    if (!this.isDead() && this.isHurt()) {
+  //      if (i < img.length) {
+  //        this.loadImage(img[i]);
+  //        i++;
+  //      } else {
+  //        clearInterval(hurtInterval);
+  //      }
+  //    }
+  //  }, 100);
+  //}
+
   animateSwimEnemies(img) {
     let swim = setInterval(() => {
       if (!this.isDead()) {
@@ -164,10 +178,6 @@ class MovableObject extends DrawableObject {
     } else {
       this.lastHit = new Date().getTime();
     }
-  }
-
-  checkHit() {
-    return this.enemy.energy < 10;
   }
 
   isHurt() {

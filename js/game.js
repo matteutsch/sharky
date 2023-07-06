@@ -5,12 +5,9 @@ let keyboard = new Keyboard();
 function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
-}
 
-function showCanvas() {
   let overlay = document.getElementById("start-screen");
   overlay.classList.add("d-none");
-  let canvas = document.getElementById("canvas");
   canvas.classList.remove("d-none");
 }
 

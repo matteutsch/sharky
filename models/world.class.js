@@ -4,6 +4,7 @@ class World {
   backgroundObjects = level1.backgroundObjects;
   collectables = level1.collectables;
   level = level1;
+  endboss = level1.enemies.find((e) => e instanceof Endboss);
   canvas;
   ctx;
   keyboard;
@@ -30,6 +31,7 @@ class World {
 
   setWorld() {
     this.character.world = this;
+    this.endboss.world = this;
   }
 
   run() {
