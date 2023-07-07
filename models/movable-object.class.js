@@ -7,6 +7,7 @@ class MovableObject extends DrawableObject {
   lastHit = 0;
   isRising = false;
   movingRight = false;
+  transformed = false;
 
   isColliding(mo) {
     if (this instanceof Character) {
@@ -92,18 +93,18 @@ class MovableObject extends DrawableObject {
     }
   }
 
-  animateDeath(img, arr) {
+  animateDeath(img) {
     let i = 0;
     let dead = setInterval(() => {
       if (this.isDead()) {
         this.loadImage(img[i]);
         i++;
-        if (i >= arr) {
+        if (i >= img.length) {
           this.moveUpInterval();
           clearInterval(dead);
         }
       }
-    }, 1000 / arr);
+    }, 1000 / img.length);
   }
 
   moveUpInterval() {
@@ -117,21 +118,6 @@ class MovableObject extends DrawableObject {
     }, 1000 / 10);
   }
 
-  //animateHurt(img) {
-  //  let i = 0;
-  //  let hurtInterval = setInterval(() => {
-  //    console.log(this.isHurt());
-  //    if (!this.isDead() && this.isHurt()) {
-  //      if (i < img.length) {
-  //        this.loadImage(img[i]);
-  //        i++;
-  //      } else {
-  //        clearInterval(hurtInterval);
-  //      }
-  //    }
-  //  }, 100);
-  //}
-
   animateSwimEnemies(img) {
     let swim = setInterval(() => {
       if (!this.isDead()) {
@@ -140,6 +126,38 @@ class MovableObject extends DrawableObject {
         clearInterval(swim);
       }
     }, 1000 / 11);
+  }
+
+  animateSwimPuffer(img, imgTrans) {
+    let swim = setInterval(() => {
+      if (!this.isDead()) {
+        if (!this.isHurt() && !this.transformed) {
+          this.playAnimation(img);
+        } else if (this.transformed) {
+          this.playAnimation(imgTrans);
+        }
+      } else {
+        clearInterval(swim);
+      }
+    }, 1000 / 11);
+  }
+
+  animateTransformation(img) {
+    let i = 0;
+    let transform = setInterval(() => {
+      if (!this.isDead()) {
+        if (this.isHurt() && i < img.length) {
+          this.loadImage(img[i]);
+          i++;
+          if (i == img.length) {
+            this.transformed = true;
+            this.speed + 10;
+          }
+        }
+      } else {
+        clearInterval(transform);
+      }
+    }, 20);
   }
 
   animateMovementPuffer() {
@@ -172,11 +190,12 @@ class MovableObject extends DrawableObject {
   //}
 
   hit() {
-    this.energy -= 5;
-    if (this.energy < 0) {
-      this.energy = 0;
-    } else {
-      this.lastHit = new Date().getTime();
+    this.lastHit = new Date().getTime();
+    if (this instanceof Character) {
+      this.energy -= 5;
+      if (this.energy < 0) {
+        this.energy = 0;
+      }
     }
   }
 

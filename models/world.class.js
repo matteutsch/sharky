@@ -111,6 +111,14 @@ class World {
       this.enemies.forEach((enemy) => {
         if (bubble.isColliding(enemy) && !enemy.dead) {
           enemy.energy -= bubble.damage;
+          enemy.hit();
+          if (
+            enemy instanceof PufferGreen ||
+            enemy instanceof PufferRed ||
+            enemy instanceof PufferOrange
+          ) {
+            enemy.transformed = true;
+          }
           this.shootableObject.splice(bubbleIndex, 1);
         }
       });
@@ -121,9 +129,13 @@ class World {
     this.enemies.forEach((enemy, enemyIndex) => {
       if (enemy.energy <= 0 && !enemy.dead) {
         enemy.dead = true;
-        setTimeout(() => {
-          this.enemies.splice(enemyIndex, 1);
-        }, 1500);
+        if (!(enemy instanceof Endboss)) {
+          setTimeout(() => {
+            this.enemies.splice(enemyIndex, 1);
+          }, 1500);
+        } else {
+          enemy.rise();
+        }
       }
     });
   }

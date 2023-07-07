@@ -12,6 +12,13 @@ class PufferGreen extends MovableObject {
     "img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim4.png",
     "img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/1.swim5.png",
   ];
+  IMAGES_TRANSFORMED = [
+    "img/2.Enemy/1.Puffer fish (3 color options)/3.Bubbleeswim/1.bubbleswim1.png",
+    "img/2.Enemy/1.Puffer fish (3 color options)/3.Bubbleeswim/1.bubbleswim2.png",
+    "img/2.Enemy/1.Puffer fish (3 color options)/3.Bubbleeswim/1.bubbleswim3.png",
+    "img/2.Enemy/1.Puffer fish (3 color options)/3.Bubbleeswim/1.bubbleswim4.png",
+    "img/2.Enemy/1.Puffer fish (3 color options)/3.Bubbleeswim/1.bubbleswim5.png",
+  ];
   IMAGES_TRANSITION = [
     "img/2.Enemy/1.Puffer fish (3 color options)/2.transition/1.transition1.png",
     "img/2.Enemy/1.Puffer fish (3 color options)/2.transition/1.transition2.png",
@@ -31,12 +38,14 @@ class PufferGreen extends MovableObject {
     this.loadImages(this.IMAGES_SWIM);
     this.loadImages(this.IMAGES_DEAD);
     this.loadImages(this.IMAGES_TRANSITION);
+    this.loadImages(this.IMAGES_TRANSFORMED);
     this.animate();
   }
 
   animate() {
-    this.animateSwimEnemies(this.IMAGES_SWIM);
+    this.animateSwimPuffer(this.IMAGES_SWIM, this.IMAGES_TRANSFORMED);
+    this.animateTransformation(this.IMAGES_TRANSITION);
     this.animateMovementPuffer();
-    this.animateDeath(this.IMAGES_DEAD, this.IMAGES_DEAD.length);
+    this.animateDeath(this.IMAGES_DEAD);
   }
 }

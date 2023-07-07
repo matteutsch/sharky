@@ -29,6 +29,6 @@ class JellyGreen extends MovableObject {
   animate() {
     this.animateSwimEnemies(this.IMAGES_SWIM);
     this.animateMovementJelly();
-    this.animateDeath(this.IMAGES_DEAD, this.IMAGES_DEAD.length);
+    this.animateDeath(this.IMAGES_DEAD);
   }
 }

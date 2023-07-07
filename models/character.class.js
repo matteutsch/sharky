@@ -3,7 +3,7 @@ class Character extends MovableObject {
   y = 150;
   height = 250;
   width = 220;
-  speed = 22;
+  speed = 5;
   world;
 
   IMAGES_IDLE = [
@@ -104,7 +104,7 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_SLAP);
     this.animate();
     this.applyGravity();
-    this.energy = 9001;
+    //this.energy = 9001;
   }
 
   animate() {
@@ -114,7 +114,7 @@ class Character extends MovableObject {
     this.animateMovementY();
     this.animateAttack();
     this.animateHurt();
-    this.animateDeath(this.IMAGES_DEAD, this.IMAGES_DEAD.length);
+    this.animateDeath(this.IMAGES_DEAD);
   }
 
   animateIdle() {

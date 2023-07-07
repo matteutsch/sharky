@@ -70,14 +70,26 @@ class Endboss extends MovableObject {
   animate() {
     this.animateIntro();
     this.animateSwim();
-    //this.animateHurt(this.IMAGES_HURT);
-    this.animateDeath(this.IMAGES_DEAD, this.IMAGES_DEAD.length);
+    this.animateHurt();
+    this.animateDeath(this.IMAGES_DEAD);
   }
 
   animateSwim() {
-    if (this.swim) {
+    if (this.swim && !this.isHurt()) {
       this.animateSwimEnemies(this.IMAGES_SWIM);
     }
+  }
+
+  animateHurt() {
+    let hurt = setInterval(() => {
+      if (!this.isDead()) {
+        if (this.isHurt()) {
+          this.playAnimation(this.IMAGES_HURT);
+        }
+      } else {
+        clearInterval(hurt);
+      }
+    }, 1000 / 60);
   }
 
   animateIntro() {
@@ -88,7 +100,6 @@ class Endboss extends MovableObject {
         this.world.character.x > 1650 &&
         !this.hadFirstContact
       ) {
-        i = 0;
         this.hadFirstContact = true;
       }
       if (i < 10 && this.hadFirstContact) {

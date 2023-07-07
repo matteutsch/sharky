@@ -23,9 +23,10 @@ h1 {
 canvas {
   background-color: black;
   border-radius: 13%;
-  border: 5px solid rgb(42, 64, 231);
+  border: 5px solid #3097b0;
   display: block;
   box-sizing: border-box;
+  box-shadow: 5px 5px 5px 0px #373f43;
 }
 
 #start-screen {
