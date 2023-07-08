@@ -19,11 +19,13 @@ class World {
   damage = 1;
   energy;
   dead = false;
+  img_won = "img/6.Botones/Try again/Mesa de trabajo 1.png";
   bubble_sound = new Audio("audio/singleBubble.mp3");
   background_music = new Audio("audio/background.mp3");
   collectables_sound = new Audio("audio/collectables.mp3");
   hit_sound = new Audio("audio/hit.mp3");
   endboss_dying = new Audio("audio/endboss_dying.mp3");
+  win_sound = new Audio("audio/win.mp3");
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -32,6 +34,7 @@ class World {
     this.draw();
     this.setWorld();
     this.run();
+    this.background_music.volume = 0.3;
   }
 
   setWorld() {
@@ -40,7 +43,7 @@ class World {
   }
 
   run() {
-    setInterval(() => {
+    setStoppableInterval(() => {
       this.checkCollisionEnemy();
       this.checkCollisionBubble();
       this.checkCollisionCollectables();
@@ -101,15 +104,16 @@ class World {
         if (collectable instanceof Coin) {
           if (this.coins <= 4) {
             this.coins++;
+            this.collectables_sound.play();
             this.collectables.splice(index, 1);
             this.coinBar.setPercentageCoin(this.coins);
           }
         } else if (this.poison <= 4) {
           this.poison++;
+          this.collectables_sound.play();
           this.collectables.splice(index, 1);
           this.poisonBar.setPercentagePoison(this.poison);
         }
-        this.collectables_sound.play();
       }
     });
   }
@@ -139,7 +143,7 @@ class World {
       if (enemy.energy <= 0 && !enemy.dead) {
         enemy.dead = true;
         if (enemy instanceof Endboss) {
-          this.endboss_dying.play();
+          this.endBossDead();
         }
         if (!(enemy instanceof Endboss)) {
           setTimeout(() => {
@@ -150,6 +154,16 @@ class World {
         }
       }
     });
+  }
+
+  endBossDead() {
+    this.endboss_dying.play();
+    this.endboss.hadFirstContact = false;
+    setTimeout(() => {
+      this.endboss.boss_fight.pause();
+      this.win_sound.play();
+      showEndScreen(this.img_won);
+    }, 2000);
   }
 
   returnBubbleStatus() {

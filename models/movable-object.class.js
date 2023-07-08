@@ -11,6 +11,8 @@ class MovableObject extends DrawableObject {
   slap_sound = new Audio("audio/slap.mp3");
   character_hurt = new Audio("audio/character_hurt.mp3");
   character_dying = new Audio("audio/character_dying.mp3");
+  lose_sound = new Audio("audio/lose.mp3");
+  img_lose = "img/6.Botones/Tittles/Game Over/Recurso 10.png";
 
   isColliding(mo) {
     if (this instanceof Character) {
@@ -101,7 +103,7 @@ class MovableObject extends DrawableObject {
     let dead = setInterval(() => {
       if (this.isDead()) {
         if (this instanceof Character && i == 0) {
-          this.character_dying.play();
+          this.characterDead();
         }
         this.loadImage(img[i]);
         i++;
@@ -111,6 +113,17 @@ class MovableObject extends DrawableObject {
         }
       }
     }, 1000 / img.length);
+  }
+
+  characterDead() {
+    this.character_dying.play();
+    setTimeout(() => {
+      this.world.endboss.boss_fight.pause();
+      this.world.background_music.pause();
+      this.lose_sound.play();
+      this.world.endboss.hadFirstContact = false;
+      showEndScreen(this.img_lose);
+    }, 2000);
   }
 
   moveUpInterval() {

@@ -116,13 +116,6 @@ class Character extends MovableObject {
     this.animateAttack();
     this.animateHurt();
     this.animateDeath(this.IMAGES_DEAD);
-    this.playSoundDead();
-  }
-
-  playSoundDead() {
-    if (this.isDead()) {
-      this.dying_sound.play();
-    }
   }
 
   animateIdle() {
