@@ -8,6 +8,9 @@ class MovableObject extends DrawableObject {
   isRising = false;
   movingRight = false;
   transformed = false;
+  slap_sound = new Audio("audio/slap.mp3");
+  character_hurt = new Audio("audio/character_hurt.mp3");
+  character_dying = new Audio("audio/character_dying.mp3");
 
   isColliding(mo) {
     if (this instanceof Character) {
@@ -97,6 +100,9 @@ class MovableObject extends DrawableObject {
     let i = 0;
     let dead = setInterval(() => {
       if (this.isDead()) {
+        if (this instanceof Character && i == 0) {
+          this.character_dying.play();
+        }
         this.loadImage(img[i]);
         i++;
         if (i >= img.length) {
@@ -151,7 +157,6 @@ class MovableObject extends DrawableObject {
           i++;
           if (i == img.length) {
             this.transformed = true;
-            this.speed + 10;
           }
         }
       } else {
@@ -180,18 +185,10 @@ class MovableObject extends DrawableObject {
     }, 1000 / 60);
   }
 
-  //isClose(mo) {
-  //  return (
-  //    mo.x - this.x <= 100 &&
-  //    mo.x - this.x >= -100 &&
-  //    mo.y - this.y <= 50 &&
-  //    mo.y - this.y >= -50
-  //  );
-  //}
-
   hit() {
     this.lastHit = new Date().getTime();
-    if (this instanceof Character) {
+    if (this instanceof Character && !this.isDead()) {
+      this.character_hurt.play();
       this.energy -= 5;
       if (this.energy < 0) {
         this.energy = 0;

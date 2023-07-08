@@ -19,6 +19,11 @@ class World {
   damage = 1;
   energy;
   dead = false;
+  bubble_sound = new Audio("audio/singleBubble.mp3");
+  background_music = new Audio("audio/background.mp3");
+  collectables_sound = new Audio("audio/collectables.mp3");
+  hit_sound = new Audio("audio/hit.mp3");
+  endboss_dying = new Audio("audio/endboss_dying.mp3");
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -42,6 +47,7 @@ class World {
       this.checkShotObjects();
       this.checkDeadEnemy();
     }, 150);
+    this.background_music.play();
   }
 
   checkShotObjects() {
@@ -69,6 +75,7 @@ class World {
         this.poisonBar.setPercentagePoison(this.poison);
       }
       this.shootableObject.push(bubble);
+      this.bubble_sound.play();
     }
     this.shootableObject = this.shootableObject.filter(
       (bubble) => bubble.y >= 0
@@ -102,6 +109,7 @@ class World {
           this.collectables.splice(index, 1);
           this.poisonBar.setPercentagePoison(this.poison);
         }
+        this.collectables_sound.play();
       }
     });
   }
@@ -112,6 +120,7 @@ class World {
         if (bubble.isColliding(enemy) && !enemy.dead) {
           enemy.energy -= bubble.damage;
           enemy.hit();
+          this.hit_sound.play();
           if (
             enemy instanceof PufferGreen ||
             enemy instanceof PufferRed ||
@@ -129,6 +138,9 @@ class World {
     this.enemies.forEach((enemy, enemyIndex) => {
       if (enemy.energy <= 0 && !enemy.dead) {
         enemy.dead = true;
+        if (enemy instanceof Endboss) {
+          this.endboss_dying.play();
+        }
         if (!(enemy instanceof Endboss)) {
           setTimeout(() => {
             this.enemies.splice(enemyIndex, 1);

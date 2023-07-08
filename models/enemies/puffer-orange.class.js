@@ -1,5 +1,5 @@
 class PufferOrange extends MovableObject {
-  height = 60;
+  height = 50;
   width = 60;
   x = 1800 + Math.random() * 900;
   y = Math.random() * 50 + Math.random() * 200;

@@ -1,5 +1,5 @@
 class PufferRed extends MovableObject {
-  height = 80;
+  height = 60;
   width = 80;
   x = 800 + Math.random() * 800;
   y = 150 + Math.random() * 200;
@@ -49,5 +49,14 @@ class PufferRed extends MovableObject {
     this.animateTransformation(this.IMAGES_TRANSITION);
     this.animateMovementPuffer();
     this.animateDeath(this.IMAGES_DEAD);
+    this.speedUp();
+  }
+
+  speedUp() {
+    setInterval(() => {
+      if (this.transformed) {
+        this.speed = 3 + Math.random() * 0.5 + Math.random() * 0.5;
+      }
+    }, 100);
   }
 }
