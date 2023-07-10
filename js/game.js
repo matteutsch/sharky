@@ -1,19 +1,9 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let intervalIds = [];
 
-function setStoppableInterval(fn, time) {
-  let id = setInterval(fn, time);
-  intervalIds.push(id);
-}
-
-function stopGame() {
-  intervalIds.forEach(clearInterval);
-}
-
-function restart() {
-  location.reload(); // quick fix for now
+function clearAllIntervals() {
+  for (let i = 1; i < 9999; i++) window.clearInterval(i);
 }
 
 function backToMenu() {

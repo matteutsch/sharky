@@ -122,6 +122,8 @@ class MovableObject extends DrawableObject {
       this.world.background_music.pause();
       this.lose_sound.play();
       this.world.endboss.hadFirstContact = false;
+      clearAllIntervals();
+      setLevel();
       showEndScreen(this.img_lose);
     }, 2000);
   }

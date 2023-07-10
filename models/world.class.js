@@ -19,6 +19,8 @@ class World {
   damage = 1;
   energy;
   dead = false;
+
+  //sounds & endscreen img_won
   img_won = "img/6.Botones/Try again/Mesa de trabajo 1.png";
   bubble_sound = new Audio("audio/singleBubble.mp3");
   background_music = new Audio("audio/background.mp3");
@@ -43,7 +45,7 @@ class World {
   }
 
   run() {
-    setStoppableInterval(() => {
+    setInterval(() => {
       this.checkCollisionEnemy();
       this.checkCollisionBubble();
       this.checkCollisionCollectables();
@@ -158,11 +160,14 @@ class World {
 
   endBossDead() {
     this.endboss_dying.play();
-    this.endboss.hadFirstContact = false;
     setTimeout(() => {
       this.endboss.boss_fight.pause();
+      this.background_music.pause();
+      this.endboss.hadFirstContact = false;
       this.win_sound.play();
       showEndScreen(this.img_won);
+      clearAllIntervals();
+      setLevel();
     }, 2000);
   }
 

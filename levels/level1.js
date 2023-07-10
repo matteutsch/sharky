@@ -1,5 +1,11 @@
-const level1 = new Level(
-  [
+let level1;
+
+function setLevel() {
+  level1 = new Level(returnEnemies(), returnBackground(), returnCollectables());
+}
+
+function returnEnemies() {
+  return [
     new JellyPurple(500, 100),
     new JellyPurple(700, 120),
     new JellyPurple(900, 110),
@@ -20,8 +26,11 @@ const level1 = new Level(
     new PufferRed(),
     new PufferRed(),
     new Endboss(),
-  ],
-  [
+  ];
+}
+
+function returnBackground() {
+  return [
     new BackgroundObject("img/3. Background/Layers/5. Water/D2.png", -900),
     new BackgroundObject("img/3. Background/Layers/4.Fondo 2/D2.png", -900),
     new BackgroundObject("img/3. Background/Layers/3.Fondo 1/L2.png", -900),
@@ -41,8 +50,11 @@ const level1 = new Level(
     new BackgroundObject("img/3. Background/Layers/4.Fondo 2/D1.png", 1800),
     new BackgroundObject("img/3. Background/Layers/3.Fondo 1/L1.png", 1800),
     new BackgroundObject("img/3. Background/Layers/2. Floor/D1.png", 1800),
-  ],
-  [
+  ];
+}
+
+function returnCollectables() {
+  return [
     new Coin(510, 400),
     new Coin(710, 300),
     new Coin(825, 250),
@@ -63,5 +75,7 @@ const level1 = new Level(
     new Poison(-250, 400),
     new Poison(-350, 370),
     new Poison(-450, 400),
-  ]
-);
+  ];
+}
+
+setLevel();
