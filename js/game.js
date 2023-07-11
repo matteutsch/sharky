@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let lastInteractionTime = new Date().getTime();
 
 function clearAllIntervals() {
   for (let i = 1; i < 9999; i++) window.clearInterval(i);
@@ -36,6 +37,22 @@ function showEndScreen(img) {
   canvas.classList.add("d-none");
 }
 
+//
+function isAFK() {
+  let currentTime = new Date().getTime();
+  let timeElapsed = (currentTime - lastInteractionTime) / 1000;
+
+  if (timeElapsed >= 5) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function updateLastInteractionTime() {
+  lastInteractionTime = new Date().getTime();
+}
+
 window.addEventListener("keydown", (e) => {
   if (e.keyCode == 39) {
     keyboard.RIGHT = true;
@@ -55,6 +72,9 @@ window.addEventListener("keydown", (e) => {
   if (e.keyCode == 68) {
     keyboard.D = true;
   }
+  document.addEventListener("keydown", updateLastInteractionTime());
+  document.addEventListener("mousemove", updateLastInteractionTime());
+  document.addEventListener("click", updateLastInteractionTime());
 });
 
 window.addEventListener("keyup", (e) => {

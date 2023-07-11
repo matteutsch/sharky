@@ -121,9 +121,9 @@ class Character extends MovableObject {
   animateIdle() {
     let idle = setInterval(() => {
       if (!this.isDead()) {
-        if (!this.isAboveGround() && this.isAFK()) {
+        if (!this.isAboveGround() && isAFK()) {
           this.playAnimation(this.IMAGES_LONG_IDLE);
-        } else if (this.isAFK() && !this.isHurt()) {
+        } else if (!isAFK() && !this.isHurt()) {
           this.playAnimation(this.IMAGES_IDLE);
         }
       } else {
@@ -212,19 +212,5 @@ class Character extends MovableObject {
         clearInterval(attack);
       }
     }, 1000 / 25);
-  }
-
-  isAFK() {
-    return (
-      this.world.keyboard.RIGHT == false &&
-      this.world.keyboard.LEFT == false &&
-      this.world.keyboard.UP == false &&
-      this.world.keyboard.DOWN == false &&
-      this.world.keyboard.D == false &&
-      this.world.keyboard.SPACE == false
-    );
-    //let timepassed = new Date().getTime() - this.world.lastKeyDown;
-    //timepassed = timepassed / 1000;
-    //return timepassed < 1;
   }
 }

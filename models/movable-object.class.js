@@ -209,6 +209,7 @@ class MovableObject extends DrawableObject {
         this.energy = 0;
       }
     }
+    updateLastInteractionTime();
   }
 
   isHurt() {
