@@ -27,7 +27,8 @@ class DrawableObject {
       !(this instanceof BackgroundObject) &&
       !(this instanceof StatusBar) &&
       !(this instanceof CoinBar) &&
-      !(this instanceof PoisonBar)
+      !(this instanceof PoisonBar) &&
+      !(this instanceof StatusBarEndboss)
     ) {
       ctx.beginPath();
       ctx.lineWidth = "4";

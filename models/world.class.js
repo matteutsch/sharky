@@ -12,6 +12,7 @@ class World {
   statusBar = new StatusBar();
   coinBar = new CoinBar();
   poisonBar = new PoisonBar();
+  endbossBar = new StatusBarEndboss();
   shotBubble = new ShootableObject();
   shootableObject = [];
   coins = 0;
@@ -19,9 +20,8 @@ class World {
   damage = 1;
   energy;
   dead = false;
+  img_win = "img/6.Botones/Tittles/You win/Recurso 19.png";
 
-  //sounds & endscreen img_won
-  img_won = "img/6.Botones/Try again/Mesa de trabajo 1.png";
   bubble_sound = new Audio("audio/singleBubble.mp3");
   background_music = new Audio("audio/background.mp3");
   collectables_sound = new Audio("audio/collectables.mp3");
@@ -47,10 +47,10 @@ class World {
   run() {
     setInterval(() => {
       this.checkCollisionEnemy();
-      this.checkCollisionBubble();
       this.checkCollisionCollectables();
       this.checkShotObjects();
       this.checkDeadEnemy();
+      this.checkCollisionBubble();
     }, 150);
     this.background_music.play();
   }
@@ -127,6 +127,12 @@ class World {
           enemy.energy -= bubble.damage;
           enemy.hit();
           this.hit_sound.play();
+          if (enemy instanceof Endboss) {
+            if (enemy.energy <= 0) {
+              enemy.energy = 0;
+            }
+            this.endbossBar.setPercentageHealth(enemy.energy);
+          }
           if (
             enemy instanceof PufferGreen ||
             enemy instanceof PufferRed ||
@@ -143,9 +149,10 @@ class World {
   checkDeadEnemy() {
     this.enemies.forEach((enemy, enemyIndex) => {
       if (enemy.energy <= 0 && !enemy.dead) {
+        enemy.energy = 0;
         enemy.dead = true;
         if (enemy instanceof Endboss) {
-          this.endBossDead();
+          this.endbossIsDead();
         }
         if (!(enemy instanceof Endboss)) {
           setTimeout(() => {
@@ -158,15 +165,15 @@ class World {
     });
   }
 
-  endBossDead() {
+  endbossIsDead() {
     this.endboss_dying.play();
     setTimeout(() => {
       this.endboss.boss_fight.pause();
       this.background_music.pause();
       this.endboss.hadFirstContact = false;
       this.win_sound.play();
-      showEndScreen(this.img_won);
       clearAllIntervals();
+      showEndScreen(this.img_win);
       setLevel();
     }, 2000);
   }
@@ -189,16 +196,17 @@ class World {
     this.addObjectsToMap(this.backgroundObjects);
     this.addObjectsToMap(this.collectables);
 
+    this.addToMap(this.character);
+    this.addObjectsToMap(this.enemies);
+    this.addObjectsToMap(this.shootableObject);
+
     this.ctx.translate(-this.camera_x, 0);
     //---space for fixed objects---//
     this.addToMap(this.statusBar);
     this.addToMap(this.poisonBar);
     this.addToMap(this.coinBar);
+    this.addToMap(this.endbossBar);
     this.ctx.translate(this.camera_x, 0);
-
-    this.addToMap(this.character);
-    this.addObjectsToMap(this.enemies);
-    this.addObjectsToMap(this.shootableObject);
 
     this.ctx.translate(-this.camera_x, 0);
 

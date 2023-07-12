@@ -25,6 +25,7 @@
     <script src="models/bars/poison-bar.class.js"></script>
     <script src="models/bars/coin-bar.class.js"></script>
     <script src="models/bars/status-bar.class.js"></script>
+    <script src="models/bars/status-bar-endboss.class.js"></script>
     <script src="models/collectables/coin.class.js"></script>
     <script src="models/collectables/poison.class.js"></script>
     <script src="models/world.class.js"></script>
@@ -37,7 +38,7 @@
   </head>
   <body>
     <div id="start-screen">
-      <div class="start-container">
+      <div class="start-container floating">
         <h1>Sharky</h1>
         <div>
           <button onclick="init()" class="button" id="start-button">
@@ -61,10 +62,10 @@
     </div>
 
     <div id="end-screen" class="d-none">
-      <button class="end-button button" onclick="init()">Restart</button>
-      <button class="end-button button" onclick="backToMenu()">
-        Back to Menu
-      </button>
+      <div class="end-button floating">
+        <button class="button" onclick="init()">Restart</button>
+        <button class="button" onclick="backToMenu()">Back to Menu</button>
+      </div>
     </div>
   </body>
 </html>

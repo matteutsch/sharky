@@ -105,7 +105,6 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_SLAP);
     this.animate();
     this.applyGravity();
-    //this.energy = 9001;
   }
 
   animate() {
@@ -123,7 +122,11 @@ class Character extends MovableObject {
       if (!this.isDead()) {
         if (!this.isAboveGround() && isAFK()) {
           this.playAnimation(this.IMAGES_LONG_IDLE);
-        } else if (!isAFK() && !this.isHurt()) {
+        } else if (
+          !this.keysPressed() &&
+          !this.isHurt() &&
+          !this.world.keyboard.SPACE
+        ) {
           this.playAnimation(this.IMAGES_IDLE);
         }
       } else {
@@ -148,11 +151,9 @@ class Character extends MovableObject {
     let swim = setInterval(() => {
       if (!this.isDead()) {
         if (
-          (this.world.keyboard.RIGHT ||
-            this.world.keyboard.LEFT ||
-            this.world.keyboard.UP ||
-            this.world.keyboard.DOWN) &&
-          !this.isHurt()
+          this.keysPressed() &&
+          !this.isHurt() &&
+          !this.world.keyboard.SPACE
         ) {
           this.playAnimation(this.IMAGES_SWIM);
         }
@@ -204,13 +205,19 @@ class Character extends MovableObject {
         if (this.world.keyboard.SPACE && !this.isHurt()) {
           this.playAnimation(this.IMAGES_SHOOT);
           this.blow_sound.play();
-        } else if (this.world.keyboard.D && !this.isHurt()) {
-          this.playAnimation(this.IMAGES_SLAP);
-          this.slap_sound.play();
         }
       } else {
         clearInterval(attack);
       }
     }, 1000 / 25);
+  }
+
+  keysPressed() {
+    return (
+      this.world.keyboard.RIGHT ||
+      this.world.keyboard.LEFT ||
+      this.world.keyboard.UP ||
+      this.world.keyboard.DOWN
+    );
   }
 }

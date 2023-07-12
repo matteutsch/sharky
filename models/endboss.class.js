@@ -109,6 +109,7 @@ class Endboss extends MovableObject {
         this.hadFirstContact = true;
       }
       if (i < 10 && this.hadFirstContact) {
+        this.world.endbossBar.y = 50;
         this.boss_fight.play();
         this.world.background_music.pause();
         this.loadImage(this.IMAGES_INTRODUCE[i]);
