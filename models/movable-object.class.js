@@ -222,6 +222,14 @@ class MovableObject extends DrawableObject {
     return this.energy <= 0;
   }
 
+  speedUp() {
+    setInterval(() => {
+      if (this.transformed) {
+        this.speed = 3 + Math.random() * 0.5 + Math.random() * 0.5;
+      }
+    }, 100);
+  }
+
   isAboveGround() {
     if (this instanceof Character) {
       return this.y < 275;

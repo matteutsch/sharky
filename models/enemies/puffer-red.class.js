@@ -52,11 +52,5 @@ class PufferRed extends MovableObject {
     this.speedUp();
   }
 
-  speedUp() {
-    setInterval(() => {
-      if (this.transformed) {
-        this.speed = 3 + Math.random() * 0.5 + Math.random() * 0.5;
-      }
-    }, 100);
-  }
+
 }
