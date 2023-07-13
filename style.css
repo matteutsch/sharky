@@ -1,4 +1,5 @@
 body {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,6 +15,11 @@ h1 {
   font-size: 56px;
   margin: 4vh;
   text-shadow: 4px 4px 4px white;
+}
+
+h2 {
+  text-shadow: 2px 2px 2px white;
+  margin-bottom: 200px;
 }
 
 .d-none {
@@ -45,14 +51,14 @@ canvas {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background-image: url("img/3. Background/Mesa de trabajo 1.png");
   background-size: cover;
-  background-position: center;
+  background-position: bottom;
 }
 
-.start-container {
+#start-container {
   margin-left: 450px;
   margin-top: -450px;
   display: flex;
@@ -103,17 +109,70 @@ canvas {
 }
 
 #hud {
-  z-index: 9999;
-  visibility: hidden;
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  box-sizing: border-box;
+}
+
+.sound {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  opacity: 0.5;
+  width: 24px;
+  height: 24px;
+}
+
+.sound:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.move-btn {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  margin-bottom: 40px;
+}
+
+.move-btn img {
+  width: 48px !important;
+  height: 48px !important;
+}
+
+.left-right-btn {
+  transform: translateX(-40%);
+  display: flex;
+  gap: 96px;
+  justify-content: center;
+  align-items: center;
+}
+
+.up-down-btn {
+  transform: translateX(-410%);
+  display: flex;
+  gap: 56px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.attack-btn {
+  position: relative;
+  left: 50px;
+  bottom: 40px;
+  width: 40px;
+  height: 40px;
 }
 
 @keyframes float {
@@ -146,9 +205,40 @@ canvas {
     border-radius: 0;
   }
 
-  @media (max-width: 600px) {
-    #hud {
-      visibility: visible;
-    }
+  .end-button {
+    bottom: 10vh;
+  }
+
+  #start-container {
+    margin-left: 250px !important;
+    margin-top: -150px !important;
+  }
+  .button {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 900px) {
+  #start-container {
+    margin-left: 200px;
+    margin-top: -450px;
+  }
+}
+
+@media (max-width: 700px) {
+  #start-container {
+    margin-left: 0;
+    margin-top: -0;
+  }
+  #howToPlay img {
+    height: 220px;
+    width: 380px;
+    bottom: -120%;
+  }
+}
+
+@media (max-width: 400px) {
+  .button {
+    font-size: 24px;
   }
 }

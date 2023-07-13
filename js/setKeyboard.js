@@ -17,9 +17,7 @@ window.addEventListener("keydown", (e) => {
   if (e.keyCode == 68) {
     keyboard.D = true;
   }
-  document.addEventListener("keydown", updateLastInteractionTime());
-  document.addEventListener("mousemove", updateLastInteractionTime());
-  document.addEventListener("click", updateLastInteractionTime());
+  updateLastInteractionTime();
 });
 
 window.addEventListener("keyup", (e) => {
@@ -42,3 +40,60 @@ window.addEventListener("keyup", (e) => {
     keyboard.D = false;
   }
 });
+
+function mobileButtonEvents() {
+  document.getElementById("btn-right").ontouchstart = (e) => {
+    e.preventDefault();
+    keyboard.RIGHT = true;
+    updateLastInteractionTime();
+  };
+
+  document.getElementById("btn-right").ontouchend = (e) => {
+    e.preventDefault();
+    keyboard.RIGHT = false;
+  };
+
+  document.getElementById("btn-left").ontouchstart = (e) => {
+    e.preventDefault();
+    keyboard.LEFT = true;
+    updateLastInteractionTime();
+  };
+
+  document.getElementById("btn-left").ontouchend = (e) => {
+    e.preventDefault();
+    keyboard.LEFT = false;
+  };
+
+  document.getElementById("btn-up").ontouchstart = (e) => {
+    e.preventDefault();
+    keyboard.UP = true;
+    updateLastInteractionTime();
+  };
+
+  document.getElementById("btn-up").ontouchend = (e) => {
+    e.preventDefault();
+    keyboard.UP = false;
+  };
+
+  document.getElementById("btn-down").ontouchstart = (e) => {
+    e.preventDefault();
+    keyboard.DOWN = true;
+    updateLastInteractionTime();
+  };
+
+  document.getElementById("btn-down").ontouchend = (e) => {
+    e.preventDefault();
+    keyboard.DOWN = false;
+  };
+
+  document.getElementById("btn-attack").ontouchstart = (e) => {
+    e.preventDefault();
+    keyboard.SPACE = true;
+    updateLastInteractionTime();
+  };
+
+  document.getElementById("btn-attack").ontouchend = (e) => {
+    e.preventDefault();
+    keyboard.SPACE = false;
+  };
+}

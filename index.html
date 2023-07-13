@@ -38,11 +38,23 @@
     <script src="js/game.js"></script>
   </head>
   <body>
+    <!-- startScreen -->
+    <img
+      id="mute"
+      onclick="toggleMuteImage()"
+      class="sound"
+      src="img/6.Botones/unmute.png"
+    />
     <div id="start-screen">
-      <div class="start-container floating">
+      <h2 id="rotate" class="floating d-none">Please rotate your device</h2>
+      <div id="start-container" class="floating">
         <h1>Sharky</h1>
         <div>
-          <button onclick="init()" class="button" id="start-button">
+          <button
+            onclick="checkDeviceOrientation()"
+            class="button"
+            id="start-button"
+          >
             Play
           </button>
           <button
@@ -50,35 +62,52 @@
             class="button"
             id="settings-button"
           >
-            Settings
+            How to Play
           </button>
         </div>
         <div class="d-none" id="howToPlay">
-          <img src="img/6.Botones/Instructions 2.png" />
+          <img
+            onclick="toggleSettings()"
+            src="img/6.Botones/Instructions 2.png"
+          />
         </div>
       </div>
     </div>
+    <!-- startScreen -->
+
+    <!-- canvas -->
     <div>
       <canvas class="d-none" width="900" height="500" id="canvas"></canvas>
     </div>
+    <!-- /canvas -->
 
-    <div id="hud">
-      <div class="panel">
-        <img src="img/6.Botones/unmute.png" />
+    <!-- touch buttons -->
+    <div id="hud" class="d-none">
+      <div class="attack-btn">
+        <img id="btn-attack" src="img/6.Botones/attack.png" />
       </div>
-      <div class="panel">
-        <img src="img/6.Botones/left.png" />
-        <img src="img/6.Botones/up.png" />
-        <img src="img/6.Botones/right.png" />
-        <img src="img/6.Botones/down.png" />
+      <div class="move-btn">
+        <div class="left-right-btn">
+          <img id="btn-left" src="img/6.Botones/left.png" />
+          <img id="btn-right" src="img/6.Botones/right.png" />
+        </div>
+        <div class="up-down-btn">
+          <img id="btn-up" src="img/6.Botones/up.png" />
+          <img id="btn-down" src="img/6.Botones/down.png" />
+        </div>
       </div>
     </div>
+    <!-- /touch buttons -->
 
+    <!-- endScreen -->
     <div id="end-screen" class="d-none">
       <div class="end-button floating">
-        <button class="button" onclick="init()">Restart</button>
+        <button class="button" onclick="checkDeviceOrientation()">
+          Restart
+        </button>
         <button class="button" onclick="backToMenu()">Back to Menu</button>
       </div>
     </div>
+    <!-- /endScreen -->
   </body>
 </html>
