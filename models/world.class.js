@@ -22,6 +22,11 @@ class World {
   dead = false;
   img_win = "img/6.Botones/Tittles/You win/Recurso 19.png";
 
+  /**
+   * Creates a new instance of the game.
+   * @param {HTMLCanvasElement} canvas - The canvas element for rendering.
+   * @param {Keyboard} keyboard - The keyboard input handler.
+   */
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -32,11 +37,17 @@ class World {
     background_music.volume = 0.3;
   }
 
+  /**
+   * Sets the world references for character and endboss objects.
+   */
   setWorld() {
     this.character.world = this;
     this.endboss.world = this;
   }
 
+  /**
+   * Runs the game loop at regular intervals.
+   */
   run() {
     setInterval(() => {
       this.checkCollisionEnemy();
@@ -48,6 +59,9 @@ class World {
     background_music.play();
   }
 
+  /**
+   * Checks for objects being shot by the character and performs necessary actions.
+   */
   checkShotObjects() {
     if (
       this.keyboard.SPACE &&
@@ -80,6 +94,9 @@ class World {
     );
   }
 
+  /**
+   * Checks for collisions between the character and enemies.
+   */
   checkCollisionEnemy() {
     this.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy) && !enemy.dead) {
@@ -93,6 +110,9 @@ class World {
     });
   }
 
+  /**
+   * Checks for collisions between the character and collectable objects.
+   */
   checkCollisionCollectables() {
     this.collectables.forEach((collectable, index) => {
       if (this.character.isColliding(collectable)) {
@@ -113,6 +133,9 @@ class World {
     });
   }
 
+  /**
+   * Checks for collisions between the character's shot bubbles and enemies.
+   */
   checkCollisionBubble() {
     this.shootableObject.forEach((bubble, bubbleIndex) => {
       this.enemies.forEach((enemy) => {
@@ -139,6 +162,9 @@ class World {
     });
   }
 
+  /**
+   * Checks if enemies have died and performs necessary actions.
+   */
   checkDeadEnemy() {
     this.enemies.forEach((enemy, enemyIndex) => {
       if (enemy.energy <= 0 && !enemy.dead) {
@@ -158,6 +184,9 @@ class World {
     });
   }
 
+  /**
+   * Handles actions when the end boss is defeated.
+   */
   endbossIsDead() {
     endboss_dying.play();
     setTimeout(() => {
@@ -171,6 +200,9 @@ class World {
     }, 2000);
   }
 
+  /**
+   * Sets the status of the bubble shot by the character based on poison level.
+   */
   returnBubbleStatus() {
     if (this.poison > 0) {
       this.img = this.shotBubble.IMAGE_POISONED;
@@ -181,6 +213,9 @@ class World {
     }
   }
 
+  /**
+   * Renders the game objects on the canvas.
+   */
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -209,12 +244,20 @@ class World {
     });
   }
 
+  /**
+   * Adds objects to the map for rendering.
+   * @param {Array} objects - The array of objects to be added to the map.
+   */
   addObjectsToMap(objects) {
     objects.forEach((o) => {
       this.addToMap(o);
     });
   }
 
+  /**
+   * Adds a single object to the map for rendering.
+   * @param {Object} mo - The object to be added to the map.
+   */
   addToMap(mo) {
     if (mo.otherDirection) {
       this.flipImage(mo);
@@ -227,6 +270,10 @@ class World {
     }
   }
 
+  /**
+   * Flips the image horizontally for the specified object.
+   * @param {Object} mo - The object whose image is to be flipped.
+   */
   flipImage(mo) {
     this.ctx.save();
     this.ctx.translate(mo.width, 0);

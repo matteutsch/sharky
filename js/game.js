@@ -5,10 +5,16 @@ let world;
 let keyboard = new Keyboard();
 let lastInteractionTime = new Date().getTime();
 
+/**
+ * Clears all active intervals.
+ */
 function clearAllIntervals() {
   for (let i = 1; i < 9999; i++) window.clearInterval(i);
 }
 
+/**
+ * Initializes the game.
+ */
 function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
@@ -21,6 +27,9 @@ function init() {
   muteAll();
 }
 
+/**
+ * Checks for mobile buttons and shows them if applicable.
+ */
 function checkMobileButtons() {
   let hud = document.getElementById("hud");
   if (
@@ -32,7 +41,9 @@ function checkMobileButtons() {
   }
 }
 
-////////////////
+/**
+ * Checks the device orientation and handles the screen rotation.
+ */
 function checkDeviceOrientation() {
   let startContainer = document.getElementById("start-container");
   let checkOrientation = setInterval(() => {
@@ -47,13 +58,18 @@ function checkDeviceOrientation() {
     }
   }, 1000);
 }
-//////////
 
+/**
+ * Toggles the mute state of the game.
+ */
 function toggleMute() {
   toggleMuteImage();
   toggleMuteAudio();
 }
 
+/**
+ * Toggles the mute image.
+ */
 function toggleMuteImage() {
   let mute = document.getElementById("mute");
   if (mute.src.includes("unmute.png")) {
@@ -63,11 +79,18 @@ function toggleMuteImage() {
   }
 }
 
+/**
+ * Toggles the game settings visibility.
+ */
 function toggleSettings() {
   let settings = document.getElementById("howToPlay");
   settings.classList.toggle("d-none");
 }
 
+/**
+ * Shows the end screen with the specified image.
+ * @param {string} img - The URL of the background image.
+ */
 function showEndScreen(img) {
   endScreen.classList.remove("d-none");
   canvas.classList.add("d-none");
@@ -76,6 +99,9 @@ function showEndScreen(img) {
   hud.classList.add("d-none");
 }
 
+/**
+ * Jumps back to the main menu.
+ */
 function backToMenu() {
   let startContainer = document.getElementById("start-container");
   endScreen.classList.add("d-none");
@@ -84,6 +110,10 @@ function backToMenu() {
   document.getElementById("rotate").classList.add("d-none");
 }
 
+/**
+ * Checks if the player is AFK (Away From Keyboard).
+ * @returns {boolean} - True if the player is AFK, false otherwise.
+ */
 function isAFK() {
   let currentTime = new Date().getTime();
   let timeElapsed = (currentTime - lastInteractionTime) / 1000;
@@ -95,6 +125,9 @@ function isAFK() {
   }
 }
 
+/**
+ * Updates the last interaction time to the current time.
+ */
 function updateLastInteractionTime() {
   lastInteractionTime = new Date().getTime();
 }

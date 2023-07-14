@@ -11,6 +11,11 @@ class MovableObject extends DrawableObject {
 
   img_lose = "img/6.Botones/Tittles/Game Over/Recurso 10.png";
 
+  /**
+   * Checks if the current object is colliding with the given movable object.
+   * @param {MovableObject} mo - The movable object to check collision with.
+   * @returns {boolean} - True if collision occurs, false otherwise.
+   */
   isColliding(mo) {
     if (this instanceof Character) {
       if (mo instanceof Endboss) {
@@ -47,6 +52,10 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * Plays the animation by updating the current image of the object.
+   * @param {string[]} images - The array of image paths for the animation.
+   */
   playAnimation(images) {
     let i = this.currentImage % images.length;
     let path = images[i];
@@ -54,6 +63,9 @@ class MovableObject extends DrawableObject {
     this.currentImage++;
   }
 
+  /**
+   * Applies gravity to the object by adjusting its vertical position over time.
+   */
   applyGravity() {
     setInterval(() => {
       if (this.isAboveGround()) {
@@ -63,6 +75,9 @@ class MovableObject extends DrawableObject {
     }, 1000 / 25);
   }
 
+  /**
+   * Makes the object rise and sink within the specified range.
+   */
   riseAndSink() {
     if (this.isBelowSurface() && this.isAboveGround()) {
       if (this.isRising) {
@@ -79,6 +94,9 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * Makes the object move back and forth within the specified level range.
+   */
   backAndForth() {
     if (this.isWithinLevel()) {
       if (!this.movingRight) {
@@ -95,6 +113,10 @@ class MovableObject extends DrawableObject {
     }
   }
 
+  /**
+   * Animates the death of the object using the provided image array.
+   * @param {string[]} img - The array of image paths for the death animation.
+   */
   animateDeath(img) {
     let i = 0;
     let dead = setInterval(() => {
@@ -112,6 +134,9 @@ class MovableObject extends DrawableObject {
     }, 1000 / img.length);
   }
 
+  /**
+   * Performs actions when the character is dead.
+   */
   characterIsDead() {
     character_dying.play();
     setTimeout(() => {
@@ -125,6 +150,9 @@ class MovableObject extends DrawableObject {
     }, 2000);
   }
 
+  /**
+   * Moves the object upward for a specific interval.
+   */
   moveUpInterval() {
     let i = 0;
     let move = setInterval(() => {
@@ -136,6 +164,10 @@ class MovableObject extends DrawableObject {
     }, 1000 / 10);
   }
 
+  /**
+   * Animates the swimming motion of enemies using the provided image array.
+   * @param {string[]} img - The array of image paths for the swimming animation.
+   */
   animateSwimEnemies(img) {
     let swim = setInterval(() => {
       if (!this.isDead()) {
@@ -146,6 +178,11 @@ class MovableObject extends DrawableObject {
     }, 1000 / 11);
   }
 
+  /**
+   * Animates the swimming motion of the pufferfish using the provided image arrays.
+   * @param {string[]} img - The array of image paths for the swimming animation.
+   * @param {string[]} imgTrans - The array of image paths for the transformed animation.
+   */
   animateSwimPuffer(img, imgTrans) {
     let swim = setInterval(() => {
       if (!this.isDead()) {
@@ -160,6 +197,10 @@ class MovableObject extends DrawableObject {
     }, 1000 / 11);
   }
 
+  /**
+   * Animates the transformation of the object using the provided image array.
+   * @param {string[]} img - The array of image paths for the transformation animation.
+   */
   animateTransformation(img) {
     let i = 0;
     let transform = setInterval(() => {
@@ -177,6 +218,9 @@ class MovableObject extends DrawableObject {
     }, 20);
   }
 
+  /**
+   * Animates the movement of the pufferfish object.
+   */
   animateMovementPuffer() {
     let movement = setInterval(() => {
       if (!this.isDead()) {
@@ -187,6 +231,9 @@ class MovableObject extends DrawableObject {
     }, 1000 / 60);
   }
 
+  /**
+   * Animates the movement of the jellyfish object.
+   */
   animateMovementJelly() {
     let movement = setInterval(() => {
       if (!this.isDead()) {
@@ -197,6 +244,9 @@ class MovableObject extends DrawableObject {
     }, 1000 / 60);
   }
 
+  /**
+   * Performs actions when the object is hit.
+   */
   hit() {
     this.lastHit = new Date().getTime();
     if (this instanceof Character && !this.isDead()) {
@@ -209,16 +259,27 @@ class MovableObject extends DrawableObject {
     updateLastInteractionTime();
   }
 
+  /**
+   * Checks if the object is currently in the hurt state.
+   * @returns {boolean} - True if the object is hurt, false otherwise.
+   */
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit;
     timepassed = timepassed / 1000;
     return timepassed < 0.5;
   }
 
+  /**
+   * Checks if the object is dead.
+   * @returns {boolean} - True if the object is dead, false otherwise.
+   */
   isDead() {
     return this.energy <= 0;
   }
 
+  /**
+   * Speeds up the object.
+   */
   speedUp() {
     setInterval(() => {
       if (this.transformed) {
@@ -234,12 +295,15 @@ class MovableObject extends DrawableObject {
       return this.y <= 400;
     }
   }
+
   reachedTop() {
     return this.y <= 50;
   }
+
   reachedBottom() {
     return this.y >= 400;
   }
+
   isBelowSurface() {
     return this.y > 0;
   }
@@ -252,23 +316,29 @@ class MovableObject extends DrawableObject {
   isWithinLevel() {
     return this.x >= -400 && this.x <= 1700;
   }
+
   reachedLeftLevelEnd() {
     this.otherDirection = true;
     return this.x <= -400;
   }
+
   reachedRightLevelEnd() {
     this.otherDirection = false;
     return this.x >= 1700;
   }
+
   moveRight() {
     this.x += this.speed;
   }
+
   moveLeft() {
     this.x -= this.speed;
   }
+
   moveDown() {
     this.y += this.speed;
   }
+
   moveUp() {
     this.y -= this.speed;
   }

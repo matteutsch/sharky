@@ -92,6 +92,9 @@ class Character extends MovableObject {
     "img/1.Sharkie/4.Attack/Fin slap/8.png",
   ];
 
+  /**
+   * Creates an instance of the Character class.
+   */
   constructor() {
     super().loadImage(this.IMAGES_IDLE[0]);
     this.loadImages(this.IMAGES_SWIM);
@@ -106,6 +109,9 @@ class Character extends MovableObject {
     this.applyGravity();
   }
 
+  /**
+   * Starts all the animations for the character.
+   */
   animate() {
     this.animateIdle();
     this.animateSwim();
@@ -116,6 +122,9 @@ class Character extends MovableObject {
     this.animateDeath(this.IMAGES_DEAD);
   }
 
+  /**
+   * Animates the idle state of the character.
+   */
   animateIdle() {
     let idle = setInterval(() => {
       if (!this.isDead()) {
@@ -134,6 +143,9 @@ class Character extends MovableObject {
     }, 1000 / 8);
   }
 
+  /**
+   * Animates the hurt state of the character.
+   */
   animateHurt() {
     let hurt = setInterval(() => {
       if (!this.isDead()) {
@@ -146,6 +158,9 @@ class Character extends MovableObject {
     }, 1000 / 60);
   }
 
+  /**
+   * Animates the swimming motion of the character.
+   */
   animateSwim() {
     let swim = setInterval(() => {
       if (!this.isDead()) {
@@ -162,6 +177,9 @@ class Character extends MovableObject {
     }, 1000 / 11);
   }
 
+  /**
+   * Animates the horizontal movement of the character.
+   */
   animateMovementX() {
     let move = setInterval(() => {
       if (!this.isDead()) {
@@ -183,6 +201,9 @@ class Character extends MovableObject {
     }, 1000 / 60);
   }
 
+  /**
+   * Animates the vertical movement of the character.
+   */
   animateMovementY() {
     let move = setInterval(() => {
       if (!this.isDead()) {
@@ -198,6 +219,9 @@ class Character extends MovableObject {
     }, 1000 / 60);
   }
 
+  /**
+   * Animates the attack motion of the character.
+   */
   animateAttack() {
     let attack = setInterval(() => {
       if (!this.isDead()) {
@@ -211,6 +235,10 @@ class Character extends MovableObject {
     }, 1000 / 25);
   }
 
+  /**
+ * Checks if any movement keys are currently pressed.
+ * @returns {boolean} - True if any movement keys are pressed, false otherwise.
+ */
   keysPressed() {
     return (
       this.world.keyboard.RIGHT ||

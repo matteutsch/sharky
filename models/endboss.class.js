@@ -57,6 +57,9 @@ class Endboss extends MovableObject {
     "img/2.Enemy/3 Final Enemy/Dead/Mesa de trabajo 2 copia 10.png",
   ];
 
+  /**
+   * Creates an instance of Endboss.
+   */
   constructor() {
     super().loadImage(this.IMAGES_INTRODUCE[0]);
     this.loadImages(this.IMAGES_INTRODUCE);
@@ -68,6 +71,9 @@ class Endboss extends MovableObject {
     this.energy = 50;
   }
 
+  /**
+   * Starts the animations for the end boss.
+   */
   animate() {
     this.animateIntro();
     this.animateSwim();
@@ -77,12 +83,18 @@ class Endboss extends MovableObject {
     this.followChar();
   }
 
+  /**
+   * Animates the swimming motion of the end boss.
+   */
   animateSwim() {
     if (this.swim && !this.isHurt()) {
       this.animateSwimEnemies(this.IMAGES_SWIM);
     }
   }
 
+  /**
+   * Animates the hurt state of the end boss.
+   */
   animateHurt() {
     let hurt = setInterval(() => {
       if (!this.isDead()) {
@@ -96,6 +108,9 @@ class Endboss extends MovableObject {
     }, 1000 / 60);
   }
 
+  /**
+   * Animates the introduction of the end boss.
+   */
   animateIntro() {
     let i = 0;
     let intro = setInterval(() => {
@@ -121,6 +136,24 @@ class Endboss extends MovableObject {
     }, 100);
   }
 
+  /**
+   * Animates the attack motion of the end boss.
+   */
+  animateAttack() {
+    let attack = setInterval(() => {
+      if (!this.isDead()) {
+        if (this.isClose() && !this.isHurt()) {
+          this.playAnimation(this.IMAGES_ATTACK);
+        }
+      } else {
+        clearInterval(attack);
+      }
+    }, 1000 / 25);
+  }
+
+  /**
+   * Makes the end boss follow the character.
+   */
   followChar() {
     setInterval(() => {
       if (this.world && !this.isDead() && this.hadFirstContact) {
@@ -143,18 +176,10 @@ class Endboss extends MovableObject {
     }, 100);
   }
 
-  animateAttack() {
-    let attack = setInterval(() => {
-      if (!this.isDead()) {
-        if (this.isClose() && !this.isHurt()) {
-          this.playAnimation(this.IMAGES_ATTACK);
-        }
-      } else {
-        clearInterval(attack);
-      }
-    }, 1000 / 25);
-  }
-
+  /**
+   * Checks if the character is close to the end boss.
+   * @returns {boolean} - True if the character is close, false otherwise.
+   */
   isClose() {
     if (this.world) {
       if (
