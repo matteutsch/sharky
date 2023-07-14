@@ -8,9 +8,6 @@ class MovableObject extends DrawableObject {
   isRising = false;
   movingRight = false;
   transformed = false;
-  character_hurt = new Audio("audio/character_hurt.mp3");
-  character_dying = new Audio("audio/character_dying.mp3");
-  lose_sound = new Audio("audio/lose.mp3");
 
   img_lose = "img/6.Botones/Tittles/Game Over/Recurso 10.png";
 
@@ -116,11 +113,11 @@ class MovableObject extends DrawableObject {
   }
 
   characterIsDead() {
-    this.character_dying.play();
+    character_dying.play();
     setTimeout(() => {
-      this.world.endboss.boss_fight.pause();
-      this.world.background_music.pause();
-      this.lose_sound.play();
+      boss_fight.pause();
+      background_music.pause();
+      lose_sound.play();
       this.world.endboss.hadFirstContact = false;
       clearAllIntervals();
       showEndScreen(this.img_lose);
@@ -203,7 +200,7 @@ class MovableObject extends DrawableObject {
   hit() {
     this.lastHit = new Date().getTime();
     if (this instanceof Character && !this.isDead()) {
-      this.character_hurt.play();
+      character_hurt.play();
       this.energy -= 5;
       if (this.energy < 0) {
         this.energy = 0;

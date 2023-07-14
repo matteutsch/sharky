@@ -7,8 +7,6 @@ class Endboss extends MovableObject {
   hadFirstContact = false;
   swim = false;
   speed = 8;
-  hurt_sound = new Audio("audio/endboss_hurt.mp3");
-  boss_fight = new Audio("audio/boss_fight.mp3");
 
   IMAGES_INTRODUCE = [
     "img/2.Enemy/3 Final Enemy/1.Introduce/1.png",
@@ -90,7 +88,7 @@ class Endboss extends MovableObject {
       if (!this.isDead()) {
         if (this.isHurt()) {
           this.playAnimation(this.IMAGES_HURT);
-          this.hurt_sound.play();
+          boss_hurt.play();
         }
       } else {
         clearInterval(hurt);
@@ -110,8 +108,8 @@ class Endboss extends MovableObject {
       }
       if (i < 10 && this.hadFirstContact) {
         this.world.endbossBar.y = 50;
-        this.boss_fight.play();
-        this.world.background_music.pause();
+        boss_fight.play();
+        background_music.pause();
         this.loadImage(this.IMAGES_INTRODUCE[i]);
         i++;
       }

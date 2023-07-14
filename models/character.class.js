@@ -5,7 +5,6 @@ class Character extends MovableObject {
   width = 220;
   speed = 5;
   world;
-  blow_sound = new Audio("audio/blow.mp3");
 
   IMAGES_IDLE = [
     "img/1.Sharkie/1.IDLE/1.png",
@@ -204,7 +203,7 @@ class Character extends MovableObject {
       if (!this.isDead()) {
         if (this.world.keyboard.SPACE && !this.isHurt()) {
           this.playAnimation(this.IMAGES_SHOOT);
-          this.blow_sound.play();
+          character_blow.play();
         }
       } else {
         clearInterval(attack);

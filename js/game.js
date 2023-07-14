@@ -18,6 +18,7 @@ function init() {
   canvas.classList.remove("d-none");
   endScreen.classList.add("d-none");
   checkMobileButtons();
+  muteAll();
 }
 
 function checkMobileButtons() {
@@ -47,6 +48,11 @@ function checkDeviceOrientation() {
   }, 1000);
 }
 //////////
+
+function toggleMute() {
+  toggleMuteImage();
+  toggleMuteAudio();
+}
 
 function toggleMuteImage() {
   let mute = document.getElementById("mute");

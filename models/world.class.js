@@ -22,13 +22,6 @@ class World {
   dead = false;
   img_win = "img/6.Botones/Tittles/You win/Recurso 19.png";
 
-  bubble_sound = new Audio("audio/singleBubble.mp3");
-  background_music = new Audio("audio/background.mp3");
-  collectables_sound = new Audio("audio/collectables.mp3");
-  hit_sound = new Audio("audio/hit.mp3");
-  endboss_dying = new Audio("audio/endboss_dying.mp3");
-  win_sound = new Audio("audio/win.mp3");
-
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -36,7 +29,7 @@ class World {
     this.draw();
     this.setWorld();
     this.run();
-    this.background_music.volume = 0.3;
+    background_music.volume = 0.3;
   }
 
   setWorld() {
@@ -52,7 +45,7 @@ class World {
       this.checkDeadEnemy();
       this.checkCollisionBubble();
     }, 150);
-    this.background_music.play();
+    background_music.play();
   }
 
   checkShotObjects() {
@@ -80,7 +73,7 @@ class World {
         this.poisonBar.setPercentagePoison(this.poison);
       }
       this.shootableObject.push(bubble);
-      this.bubble_sound.play();
+      bubble_sound.play();
     }
     this.shootableObject = this.shootableObject.filter(
       (bubble) => bubble.y >= 0
@@ -106,13 +99,13 @@ class World {
         if (collectable instanceof Coin) {
           if (this.coins <= 4) {
             this.coins++;
-            this.collectables_sound.play();
+            collectables_sound.play();
             this.collectables.splice(index, 1);
             this.coinBar.setPercentageCoin(this.coins);
           }
         } else if (this.poison <= 4) {
           this.poison++;
-          this.collectables_sound.play();
+          collectables_sound.play();
           this.collectables.splice(index, 1);
           this.poisonBar.setPercentagePoison(this.poison);
         }
@@ -126,7 +119,7 @@ class World {
         if (bubble.isColliding(enemy) && !enemy.dead) {
           enemy.energy -= bubble.damage;
           enemy.hit();
-          this.hit_sound.play();
+          hit_sound.play();
           if (enemy instanceof Endboss) {
             if (enemy.energy <= 0) {
               enemy.energy = 0;
@@ -166,12 +159,12 @@ class World {
   }
 
   endbossIsDead() {
-    this.endboss_dying.play();
+    endboss_dying.play();
     setTimeout(() => {
-      this.endboss.boss_fight.pause();
-      this.background_music.pause();
+      boss_fight.pause();
+      background_music.pause();
       this.endboss.hadFirstContact = false;
-      this.win_sound.play();
+      win_sound.play();
       clearAllIntervals();
       showEndScreen(this.img_win);
       setLevel();
