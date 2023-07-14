@@ -18,13 +18,18 @@ function clearAllIntervals() {
 function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
+  handleInit();
+  checkMobileButtons();
+  muteAll();
+}
+
+function handleInit() {
   endScreen = document.getElementById("end-screen");
   startScreen = document.getElementById("start-screen");
+  document.getElementById("mute").classList.remove("d-none");
   startScreen.classList.add("d-none");
   canvas.classList.remove("d-none");
   endScreen.classList.add("d-none");
-  checkMobileButtons();
-  muteAll();
 }
 
 /**
@@ -71,11 +76,11 @@ function toggleMute() {
  * Toggles the mute image.
  */
 function toggleMuteImage() {
-  let mute = document.getElementById("mute");
-  if (mute.src.includes("unmute.png")) {
-    mute.src = "img/6.Botones/mute.png";
+  let muteImg = document.getElementById("mute");
+  if (!mute) {
+    muteImg.src = "img/6.Botones/mute.png";
   } else {
-    mute.src = "img/6.Botones/unmute.png";
+    muteImg.src = "img/6.Botones/unmute.png";
   }
 }
 
@@ -108,6 +113,8 @@ function backToMenu() {
   startScreen.classList.remove("d-none");
   startContainer.classList.remove("d-none");
   document.getElementById("rotate").classList.add("d-none");
+  document.getElementById("mute").classList.add("d-none");
+  muteAll();
 }
 
 /**

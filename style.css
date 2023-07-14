@@ -112,7 +112,7 @@ canvas {
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -169,7 +169,7 @@ canvas {
 
 .attack-btn {
   position: relative;
-  left: 50px;
+  left: 20px;
   bottom: 40px;
   width: 40px;
   height: 40px;
@@ -192,9 +192,11 @@ canvas {
   src: url("Font/LuckiestGuy-Regular.ttf");
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1024px) {
   canvas {
-    width: 100%;
+    width: 100vw;
+    border: none;
+    border-radius: 0;
   }
 }
 
@@ -228,7 +230,7 @@ canvas {
 @media (max-width: 700px) {
   #start-container {
     margin-left: 0;
-    margin-top: -0;
+    margin-top: 0;
   }
   #howToPlay img {
     height: 220px;
