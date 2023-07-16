@@ -77,6 +77,7 @@ canvas {
   width: 100vw;
   background-image: url("img/3. Background/Layers/5. Water/L1.png");
   background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #start-container {

@@ -38,17 +38,17 @@ function muteAll() {
 }
 
 function unMuteAll() {
-  background_music.volume = 1;
-  collectables_sound.volume = 1;
-  hit_sound.volume = 1;
-  boss_fight.volume = 1;
-  boss_hurt.volume = 1;
-  endboss_dying.volume = 1;
-  bubble_sound.volume = 1;
-  character_blow.volume = 1;
-  character_hurt.volume = 1;
-  character_dying.volume = 1;
-  win_sound.volume = 1;
-  lose_sound.volume = 1;
+  background_music.volume = 0.1;
+  collectables_sound.volume = 0.5;
+  hit_sound.volume = 0.5;
+  boss_fight.volume = 0.3;
+  boss_hurt.volume = 0.5;
+  endboss_dying.volume = 0.5;
+  bubble_sound.volume = 0.5;
+  character_blow.volume = 0.5;
+  character_hurt.volume = 0.5;
+  character_dying.volume = 0.5;
+  win_sound.volume = 0.5;
+  lose_sound.volume = 0.5;
   mute = false;
 }
