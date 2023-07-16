@@ -39,76 +39,85 @@
     <script src="js/game.js"></script>
   </head>
   <body>
-    <!-- startScreen -->
-    <img
-      id="mute"
-      onclick="toggleMute()"
-      class="sound d-none"
-      src="img/6.Botones/mute.png"
-    />
-    <div id="start-screen">
-      <h2 id="rotate" class="floating d-none">Please rotate your device</h2>
-      <div id="start-container" class="floating">
-        <h1>Sharky</h1>
-        <div>
-          <button
-            onclick="checkDeviceOrientation()"
-            class="button"
-            id="start-button"
-          >
-            Play
-          </button>
-          <button
-            onclick="toggleSettings()"
-            class="button"
-            id="settings-button"
-          >
-            How to Play
-          </button>
+    <div id="fullscreen">
+      <!-- startScreen -->
+      <div id="start-screen">
+        <h2 id="rotate" class="floating d-none">Please rotate your device</h2>
+        <div id="start-container" class="floating">
+          <h1>Sharky</h1>
+          <div>
+            <button
+              onclick="checkDeviceOrientation()"
+              class="button"
+              id="start-button"
+            >
+              Play
+            </button>
+            <button
+              onclick="toggleSettings()"
+              class="button"
+              id="settings-button"
+            >
+              How to Play
+            </button>
+          </div>
+          <div class="d-none" id="howToPlay">
+            <img
+              onclick="toggleSettings()"
+              src="img/6.Botones/Instructions 2.png"
+            />
+          </div>
         </div>
-        <div class="d-none" id="howToPlay">
+      </div>
+      <!-- /startScreen -->
+
+      <!-- canvas -->
+      <div id="canvas-container" class="d-none">
+        <div id="mute-fs" class="mute-fs-img">
           <img
-            onclick="toggleSettings()"
-            src="img/6.Botones/Instructions 2.png"
+            id="enterFS"
+            class="mute-fs"
+            onclick="toggleFullscreen()"
+            src="img/6.Botones/fullscreen_enter.png"
+          />
+          <img
+            id="mute"
+            onclick="toggleMute()"
+            class="mute-fs"
+            src="img/6.Botones/mute2.png"
           />
         </div>
-      </div>
-    </div>
-    <!-- /startScreen -->
 
-    <!-- canvas -->
-    <div>
-      <canvas class="d-none" width="900" height="500" id="canvas"></canvas>
-    </div>
-    <!-- /canvas -->
+        <canvas width="900" height="500" id="canvas"></canvas>
 
-    <!-- touch buttons -->
-    <div id="hud" class="d-none">
-      <div class="attack-btn">
-        <img id="btn-attack" src="img/6.Botones/attack.png" />
-      </div>
-      <div class="move-btn">
-        <div class="left-right-btn">
-          <img id="btn-left" src="img/6.Botones/left.png" />
-          <img id="btn-right" src="img/6.Botones/right.png" />
-        </div>
-        <div class="up-down-btn">
-          <img id="btn-up" src="img/6.Botones/up.png" />
-          <img id="btn-down" src="img/6.Botones/down.png" />
+        <div id="hud" class="d-none">
+          <div class="attack-btn">
+            <img id="btn-attack" src="img/6.Botones/attack.png" />
+          </div>
+          <div class="move-btn">
+            <div class="left-right-btn">
+              <img id="btn-left" src="img/6.Botones/left.png" />
+              <img id="btn-right" src="img/6.Botones/right.png" />
+            </div>
+            <div class="up-down-btn">
+              <img id="btn-up" src="img/6.Botones/up.png" />
+              <img id="btn-down" src="img/6.Botones/down.png" />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- /touch buttons -->
+      <!-- /canvas -->
 
-    <!-- endScreen -->
-    <div id="end-screen" class="d-none">
-      <div class="end-button floating">
-        <button class="button" onclick="checkDeviceOrientation()">
-          Restart
-        </button>
-        <button class="button" onclick="backToMenu()">Back to Menu</button>
+      <!-- endScreen -->
+      <div id="end-screen" class="d-none">
+        <div class="end-button floating">
+          <button class="button" onclick="checkDeviceOrientation()">
+            Restart
+          </button>
+          <button class="button" onclick="backToMenu()">Back to Menu</button>
+        </div>
       </div>
+      <!-- /endScreen -->
     </div>
-    <!-- /endScreen -->
   </body>
 </html>

@@ -7,6 +7,7 @@ body {
   font-family: "LuckiestGuy-Regular";
   background-color: aqua;
   background-image: url("img/3. Background/Layers/5. Water/L1.png");
+  background-repeat: no-repeat;
   margin: 0;
   height: 100vh;
 }
@@ -35,12 +36,21 @@ canvas {
   box-shadow: 5px 5px 5px 0px #373f43;
 }
 
+.extend-canvas {
+  width: 100%;
+}
+
+.extend-canvas-container {
+  height: 100vh;
+  width: 100vw;
+}
+
 #end-screen {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width: 100vw;
+  width: 90vw;
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -56,6 +66,17 @@ canvas {
   background-image: url("img/3. Background/Mesa de trabajo 1.png");
   background-size: cover;
   background-position: bottom;
+  background-repeat: no-repeat;
+}
+
+#fullscreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-image: url("img/3. Background/Layers/5. Water/L1.png");
+  background-repeat: no-repeat;
 }
 
 #start-container {
@@ -108,6 +129,13 @@ canvas {
   filter: brightness(1.7);
 }
 
+#canvas-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #hud {
   position: absolute;
   bottom: 0;
@@ -119,19 +147,20 @@ canvas {
   box-sizing: border-box;
 }
 
-.sound {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  opacity: 0.5;
+.mute-fs {
   width: 24px;
   height: 24px;
+  margin: 16px;
 }
 
-.sound:hover {
+.mute-fs:hover {
   cursor: pointer;
   transform: scale(1.1);
-  opacity: 1;
+}
+.mute-fs-img {
+  position: absolute;
+  top: 16px;
+  right: 16px;
 }
 
 .move-btn {
@@ -207,6 +236,10 @@ canvas {
     border-radius: 0;
   }
 
+  #enterFS {
+    display: none;
+  }
+
   .end-button {
     bottom: 10vh;
   }
@@ -236,6 +269,9 @@ canvas {
     height: 220px;
     width: 380px;
     bottom: -120%;
+  }
+  #enterFS {
+    display: none;
   }
 }
 
